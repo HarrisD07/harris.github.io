@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Modal de connexion -->
+    <div id="login-modal" class="modal" style="display: flex;">
+        <div class="modal-content login-modal">
+            <div class="login-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Accès Administration</h2>
+            <input type="password" id="admin-password" placeholder="Mot de passe" class="admin-input">
+            <div class="login-buttons">
+                <button onclick="login()" class="btn-primary">Connexion</button>
+                <a href="index.html" class="btn-secondary">Annuler</a>
+            </div>
+            <p class="login-hint">Mot de passe par défaut: <code>admin123</code></p>
+        </div>
+    </div>
+
+    <!-- Contenu Admin (caché par défaut) -->
+    <div id="admin-content" style="display: none;">
+        <section class="admin-page">
+            <div class="container">
+                <div class="admin-header">
+                    <h1>Administration</h1>
+                    <div class="admin-actions">
+                        <a href="index.html" class="btn-secondary">
+                            <i class="fas fa-eye"></i> Voir le site
+                        </a>
+                        <button onclick="logout()" class="btn-danger">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout/modification -->
+                <div class="admin-form-container">
+                    <h2 id="form-title">Ajouter un nouveau projet</h2>
+                    <form id="project-form" class="admin-form">
+                        <input type="hidden" id="edit-id">
+                        
+                        <div class="form-row">
+                            <input type="text" id="project-title" placeholder="Titre du projet" required>
+                            <input type="text" id="project-date" placeholder="Date (ex: 02/2025 - 05/2025)">
+                        </div>
+
+                        <input type="text" id="project-technologies" placeholder="Technologies (séparées par des virgules)">
+                        
+                        <input type="text" id="project-image" placeholder="URL de l'image">
+                        
+                        <textarea id="project-description" placeholder="Description courte" rows="3"></textarea>
+                        
+                        <textarea id="project-details" placeholder="Détails complets du projet" rows="5"></textarea>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary" id="submit-btn">
+                                <i class="fas fa-plus"></i> Ajouter le projet
+                            </button>
+                            <button type="button" onclick="cancelEdit()" class="btn-secondary" id="cancel-btn" style="display: none;">
+                                Annuler
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Liste des projets existants -->
+                <div class="admin-projects-container">
+                    <h2>Projets existants (<span id="projects-count">0</span>)</h2>
+                    <div id="admin-projects-list" class="admin-projects-list">
+                        <!-- Les projets seront chargés ici -->
+                    </div>
+                </div>
+
+                <!-- Info JSON -->
+                <div class="admin-info">
+                    <h3><i class="fas fa-info-circle"></i> Note importante</h3>
+                    <p>
+                        Les modifications sont sauvegardées localement dans le navigateur. 
+                        Pour GitHub Pages, vous devrez copier manuellement le JSON généré dans votre fichier 
+                        <code>projects.json</code>.
+                    </p>
+                    <button onclick="copyJSON()" class="btn-warning">
+                        <i class="fas fa-copy"></i> Copier le JSON
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let projects = [];
+        let editingId = null;
+
+        // Connexion admin
+        function login() {
+            const password = document.getElementById('admin-password').value;
+            if (password === 'admin123') {
+                document.getElementById('login-modal').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                loadAdminProjects();
+            } else {
+                alert('Mot de passe incorrect');
+            }
+        }
+
+        // Déconnexion
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        // Charger les projets depuis le JSON
+        function loadAdminProjects() {
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    projects = data;
+                    displayAdminProjects();
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    // Utiliser les projets par défaut si le fichier n'existe pas
+                    projects = getDefaultProjects();
+                    displayAdminProjects();
+                });
+        }
+
+        // Afficher les projets dans l'admin
+        function displayAdminProjects() {
+            const list = document.getElementById('admin-projects-list');
+            list.innerHTML = '';
+            document.getElementById('projects-count').textContent = projects.length;
+
+            projects.forEach(project => {
+                const item = document.createElement('div');
+                item.className = 'admin-project-item';
+
+                const info = document.createElement('div');
+                info.className = 'admin-project-info';
+                info.innerHTML = `
+                    <h3>${project.title}</h3>
+                    <p>${project.date}</p>
+                `;
+
+                const actions = document.createElement('div');
+                actions.className = 'admin-project-actions';
+                
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn-edit';
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.onclick = () => editProject(project);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn-delete';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                deleteBtn.onclick = () => deleteProject(project.id);
+
+                actions.appendChild(editBtn);
+                actions.appendChild(deleteBtn);
+
+                item.appendChild(info);
+                item.appendChild(actions);
+
+                list.appendChild(item);
+            });
+        }
+
+        // Soumettre le formulaire
+        document.getElementById('project-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const project = {
+                id: editingId || Date.now(),
+                title: document.getElementById('project-title').value,
+                description: document.getElementById('project-description').value,
+                date: document.getElementById('project-date').value,
+                technologies: document.getElementById('project-technologies').value
+                    .split(',').map(t => t.trim()).filter(t => t),
+                images: [document.getElementById('project-image').value || 
+                    'https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Nouveau+Projet'],
+                details: document.getElementById('project-details').value
+            };
+
+            if (editingId) {
+                // Modifier
+                const index = projects.findIndex(p => p.id === editingId);
+                projects[index] = project;
+                alert('Projet mis à jour avec succès!');
+            } else {
+                // Ajouter
+                projects.push(project);
+                alert('Projet ajouté avec succès!');
+            }
+
+            saveProjects();
+            resetForm();
+            displayAdminProjects();
+        });
+
+        // Éditer un projet
+        function editProject(project) {
+            editingId = project.id;
+            document.getElementById('edit-id').value = project.id;
+            document.getElementById('project-title').value = project.title;
+            document.getElementById('project-description').value = project.description;
+            document.getElementById('project-date').value = project.date;
+            document.getElementById('project-technologies').value = project.technologies.join(', ');
+            document.getElementById('project-image').value = project.images[0];
+            document.getElementById('project-details').value = project.details;
+
+            document.getElementById('form-title').textContent = 'Modifier le projet';
+            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
+            document.getElementById('cancel-btn').style.display = 'inline-block';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Annuler l'édition
+        function cancelEdit() {
+            resetForm();
+        }
+
+        // Réinitialiser le formulaire
+        function resetForm() {
+            editingId = null;
+            document.getElementById('project-form').reset();
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-title').textContent = 'Ajouter un nouveau projet';
+            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-plus"></i> Ajouter le projet';
+            document.getElementById('cancel-btn').style.display = 'none';
+        }
+
+        // Supprimer un projet
+        function deleteProject(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce projet?')) {
+                projects = projects.filter(p => p.id !== id);
+                saveProjects();
+                displayAdminProjects();
+            }
+        }
+
+        // Sauvegarder dans localStorage
+        function saveProjects() {
+            localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+        }
+
+        // Copier le JSON
+        function copyJSON() {
+            const json = JSON.stringify(projects, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                alert('JSON copié dans le presse-papier! Collez-le dans votre fichier projects.json');
+            });
+        }
+
+        // Projets par défaut
+        function getDefaultProjects() {
+            return [
+                {
+                    id: 1,
+                    title: "Application Web Full-Stack",
+                    description: "Développement d'une application web complète avec Git/GitHub",
+                    date: "02/2025 - 05/2025",
+                    technologies: ["Laravel", "MySQL", "Git"],
+                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+1"],
+                    details: "Conception et mise en place d'une base de données relationnelle. Initiation au travail collaboratif avec Git/GitHub."
+                },
+                {
+                    id: 2,
+                    title: "Mini-projet Frontend",
+                    description: "Réalisation d'un mini-projet en développement front-end",
+                    date: "06/2024 - 08/2024",
+                    technologies: ["HTML", "CSS", "JavaScript", "Canva"],
+                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+2"],
+                    details: "Conception de maquettes pour une interface utilisateur moderne et responsive."
+                },
+                {
+                    id: 3,
+                    title: "Initiation Bureautique Avancée",
+                    description: "Gestion de données avec outils bureautiques",
+                    date: "07/2023 - 08/2023",
+                    technologies: ["Excel", "Access", "SQL"],
+                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+3"],
+                    details: "Découverte des bases de la programmation et gestion de bases de données."
+                }
+            ];
+        }
+
+        // Permettre la connexion avec Enter
+        document.getElementById('admin-password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>

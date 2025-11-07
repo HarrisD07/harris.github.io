@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Application Web Full-Stack",
+    "description": "Développement d'une application web complète avec Git/GitHub",
+    "date": "02/2025 - 05/2025",
+    "technologies": [
+      "Laravel",
+      "MySQL",
+      "Git",
+      "GitHub"
+    ],
+    "images": [
+      "https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Application+Web+Full-Stack"
+    ],
+    "details": "Développement d'une application web full-stack professionnelle. Conception et mise en place d'une base de données relationnelle robuste. Initiation au travail collaboratif avec Git/GitHub, incluant la gestion des branches, les pull requests et les revues de code."
+  },
+  {
+    "id": 2,
+    "title": "Mini-projet Frontend",
+    "description": "Réalisation d'un mini-projet en développement front-end",
+    "date": "06/2024 - 08/2024",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Canva"
+    ],
+    "images": [
+      "https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Mini-projet+Frontend"
+    ],
+    "details": "Réalisation d'un mini-projet complet en développement front-end. Conception de maquettes professionnelles pour une interface utilisateur moderne et responsive avec Canva. Implémentation des maquettes en HTML, CSS et JavaScript vanilla."
+  },
+  {
+    "id": 3,
+    "title": "Initiation Bureautique Avancée",
+    "description": "Gestion de données avec outils bureautiques avancés",
+    "date": "07/2023 - 08/2023",
+    "technologies": [
+      "Excel",
+      "Access",
+      "SQL",
+      "VBA"
+    ],
+    "images": [
+      "https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Bureautique+Avancee"
+    ],
+    "details": "Initiation approfondie à la bureautique avancée pour la gestion de données. Découverte des bases de la programmation avec VBA. Apprentissage de la gestion de bases de données avec Access et SQL. Création de tableaux de bord et analyses de données avec Excel."
+  }
+]

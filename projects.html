@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Projets - Harris Kosoko</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Bouton Admin -->
+    <a href="admin.html" class="admin-btn" title="Administration">
+        <i class="fas fa-lock"></i>
+    </a>
+
+    <section class="projects-page">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Retour à l'accueil
+            </a>
+
+            <h1 class="page-title">Mes Projets & Activités</h1>
+            <p class="page-subtitle">Découvrez mes réalisations et expériences professionnelles</p>
+
+            <div id="projects-grid" class="projects-grid">
+                <!-- Les projets seront chargés ici par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal pour afficher les détails d'un projet -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-image" src="" alt="">
+                <p id="modal-date" class="modal-date"></p>
+                <p id="modal-details" class="modal-details"></p>
+                <div id="modal-technologies" class="modal-technologies"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Charger et afficher les projets
+        function loadProjects() {
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(projects => {
+                    const grid = document.getElementById('projects-grid');
+                    grid.innerHTML = '';
+
+                    projects.forEach(project => {
+                        const card = createProjectCard(project);
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement des projets:', error);
+                    document.getElementById('projects-grid').innerHTML = 
+                        '<p class="error-message">Erreur lors du chargement des projets.</p>';
+                });
+        }
+
+        // Créer une carte de projet
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.onclick = () => openModal(project);
+
+            const img = document.createElement('img');
+            img.src = project.images[0];
+            img.alt = project.title;
+
+            const content = document.createElement('div');
+            content.className = 'project-content';
+
+            const title = document.createElement('h3');
+            title.textContent = project.title;
+
+            const description = document.createElement('p');
+            description.textContent = project.description;
+
+            const date = document.createElement('p');
+            date.className = 'project-date';
+            date.textContent = project.date;
+
+            const techContainer = document.createElement('div');
+            techContainer.className = 'project-technologies';
+
+            project.technologies.forEach(tech => {
+                const badge = document.createElement('span');
+                badge.className = 'tech-badge';
+                badge.textContent = tech;
+                techContainer.appendChild(badge);
+            });
+
+            content.appendChild(title);
+            content.appendChild(description);
+            content.appendChild(date);
+            content.appendChild(techContainer);
+
+            card.appendChild(img);
+            card.appendChild(content);
+
+            return card;
+        }
+
+        // Ouvrir la modal avec les détails du projet
+        function openModal(project) {
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-image').src = project.images[0];
+            document.getElementById('modal-date').textContent = project.date;
+            document.getElementById('modal-details').textContent = project.details;
+
+            const techContainer = document.getElementById('modal-technologies');
+            techContainer.innerHTML = '';
+            project.technologies.forEach(tech => {
+                const badge = document.createElement('span');
+                badge.className = 'tech-badge';
+                badge.textContent = tech;
+                techContainer.appendChild(badge);
+            });
+
+            document.getElementById('project-modal').style.display = 'flex';
+        }
+
+        // Fermer la modal
+        function closeModal() {
+            document.getElementById('project-modal').style.display = 'none';
+        }
+
+        // Fermer la modal en cliquant en dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('project-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Charger les projets au chargement de la page
+        loadProjects();
+    </script>
+</body>
+</html>
