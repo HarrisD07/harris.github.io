@@ -29,83 +29,357 @@
         <section class="admin-page">
             <div class="container">
                 <div class="admin-header">
-                    <h1>Administration</h1>
+                    <h1><i class="fas fa-tachometer-alt"></i> Tableau de bord</h1>
                     <div class="admin-actions">
                         <a href="index.html" class="btn-secondary">
                             <i class="fas fa-eye"></i> Voir le site
                         </a>
+                        <button onclick="exportData()" class="btn-warning">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
                         <button onclick="logout()" class="btn-danger">
                             <i class="fas fa-sign-out-alt"></i> Déconnexion
                         </button>
                     </div>
                 </div>
 
-                <!-- Formulaire d'ajout/modification -->
-                <div class="admin-form-container">
-                    <h2 id="form-title">Ajouter un nouveau projet</h2>
-                    <form id="project-form" class="admin-form">
-                        <input type="hidden" id="edit-id">
-                        
-                        <div class="form-row">
-                            <input type="text" id="project-title" placeholder="Titre du projet" required>
-                            <input type="text" id="project-date" placeholder="Date (ex: 02/2025 - 05/2025)">
+                <!-- Statistiques -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb, #0891b2);">
+                            <i class="fas fa-project-diagram"></i>
                         </div>
-
-                        <input type="text" id="project-technologies" placeholder="Technologies (séparées par des virgules)">
-                        
-                        <input type="text" id="project-image" placeholder="URL de l'image">
-                        
-                        <textarea id="project-description" placeholder="Description courte" rows="3"></textarea>
-                        
-                        <textarea id="project-details" placeholder="Détails complets du projet" rows="5"></textarea>
-
-                        <div class="form-buttons">
-                            <button type="submit" class="btn-primary" id="submit-btn">
-                                <i class="fas fa-plus"></i> Ajouter le projet
-                            </button>
-                            <button type="button" onclick="cancelEdit()" class="btn-secondary" id="cancel-btn" style="display: none;">
-                                Annuler
-                            </button>
+                        <div class="stat-info">
+                            <h3 id="total-projects">0</h3>
+                            <p>Projets totaux</p>
                         </div>
-                    </form>
-                </div>
-
-                <!-- Liste des projets existants -->
-                <div class="admin-projects-container">
-                    <h2>Projets existants (<span id="projects-count">0</span>)</h2>
-                    <div id="admin-projects-list" class="admin-projects-list">
-                        <!-- Les projets seront chargés ici -->
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-images">0</h3>
+                            <p>Images stockées</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-technologies">0</h3>
+                            <p>Technologies utilisées</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="last-update">-</h3>
+                            <p>Dernière mise à jour</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Info JSON -->
-                <div class="admin-info">
-                    <h3><i class="fas fa-info-circle"></i> Note importante</h3>
-                    <p>
-                        Les modifications sont sauvegardées localement dans le navigateur. 
-                        Pour GitHub Pages, vous devrez copier manuellement le JSON généré dans votre fichier 
-                        <code>projects.json</code>.
-                    </p>
-                    <button onclick="copyJSON()" class="btn-warning">
-                        <i class="fas fa-copy"></i> Copier le JSON
+                <!-- Onglets de navigation -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchTab('add-project')">
+                        <i class="fas fa-plus"></i> Ajouter un projet
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('manage-projects')">
+                        <i class="fas fa-list"></i> Gérer les projets (<span id="tab-count">0</span>)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('file-manager')">
+                        <i class="fas fa-folder"></i> Gestionnaire de fichiers
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('settings')">
+                        <i class="fas fa-cog"></i> Paramètres
                     </button>
                 </div>
+
+                <!-- Tab: Ajouter un projet -->
+                <div id="tab-add-project" class="tab-content active">
+                    <div class="admin-form-container">
+                        <h2 id="form-title"><i class="fas fa-plus-circle"></i> Ajouter un nouveau projet</h2>
+                        <form id="project-form" class="admin-form">
+                            <input type="hidden" id="edit-id">
+                            
+                            <div class="form-section">
+                                <h3><i class="fas fa-info-circle"></i> Informations générales</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="project-title">Titre du projet *</label>
+                                        <input type="text" id="project-title" placeholder="Ex: Application Web Full-Stack" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-date">Période *</label>
+                                        <input type="text" id="project-date" placeholder="Ex: 02/2025 - 05/2025" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="project-description">Description courte *</label>
+                                    <textarea id="project-description" placeholder="Description en une phrase" rows="2" required></textarea>
+                                    <small><span id="desc-count">0</span>/150 caractères</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="project-details">Détails complets</label>
+                                    <textarea id="project-details" placeholder="Description détaillée du projet, contexte, réalisations..." rows="5"></textarea>
+                                    <small><span id="details-count">0</span> caractères</small>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3><i class="fas fa-code"></i> Technologies utilisées</h3>
+                                <div class="form-group">
+                                    <label for="project-technologies">Technologies</label>
+                                    <input type="text" id="project-technologies" placeholder="Séparez par des virgules: Laravel, MySQL, Git">
+                                    <small>Appuyez sur Entrée pour ajouter des badges</small>
+                                </div>
+                                <div id="tech-badges" class="tech-badges-container"></div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3><i class="fas fa-image"></i> Images et médias</h3>
+                                
+                                <!-- Upload d'image locale -->
+                                <div class="form-group">
+                                    <label>Image principale du projet</label>
+                                    <div class="file-upload-area" id="image-upload-area">
+                                        <input type="file" id="project-image-file" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" style="display: none;">
+                                        <div class="upload-placeholder" onclick="document.getElementById('project-image-file').click()">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>Cliquez pour télécharger une image</p>
+                                            <small>PNG, JPG, GIF, WEBP - Max 5MB</small>
+                                        </div>
+                                        <div id="image-preview" class="image-preview" style="display: none;">
+                                            <img id="preview-img" src="" alt="Aperçu">
+                                            <button type="button" class="remove-image" onclick="removeImage()">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- OU URL externe -->
+                                <div class="form-group">
+                                    <label for="project-image-url">OU URL d'une image externe</label>
+                                    <input type="text" id="project-image-url" placeholder="https://exemple.com/image.jpg">
+                                    <small>Si vous utilisez une URL, elle remplacera l'image téléchargée</small>
+                                </div>
+
+                                <!-- Galerie d'images supplémentaires -->
+                                <div class="form-group">
+                                    <label>Images supplémentaires (optionnel)</label>
+                                    <div class="gallery-upload">
+                                        <input type="file" id="gallery-images" accept="image/*" multiple style="display: none;">
+                                        <button type="button" class="btn-secondary" onclick="document.getElementById('gallery-images').click()">
+                                            <i class="fas fa-images"></i> Ajouter des images
+                                        </button>
+                                        <div id="gallery-preview" class="gallery-preview"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Documents/fichiers associés -->
+                                <div class="form-group">
+                                    <label>Fichiers associés (PDF, documents...)</label>
+                                    <div class="file-upload">
+                                        <input type="file" id="project-files" accept=".pdf,.doc,.docx,.txt,.zip" multiple style="display: none;">
+                                        <button type="button" class="btn-secondary" onclick="document.getElementById('project-files').click()">
+                                            <i class="fas fa-file-upload"></i> Ajouter des fichiers
+                                        </button>
+                                        <div id="files-list" class="files-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3><i class="fas fa-link"></i> Liens externes</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="project-github">Lien GitHub</label>
+                                        <input type="url" id="project-github" placeholder="https://github.com/...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-demo">Lien démo / site</label>
+                                        <input type="url" id="project-demo" placeholder="https://...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3><i class="fas fa-tasks"></i> Options avancées</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="project-status">Statut du projet</label>
+                                        <select id="project-status">
+                                            <option value="completed">Terminé</option>
+                                            <option value="in-progress">En cours</option>
+                                            <option value="planned">Planifié</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-featured">Projet mis en avant</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="project-featured">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="submit" class="btn-primary" id="submit-btn">
+                                    <i class="fas fa-save"></i> Enregistrer le projet
+                                </button>
+                                <button type="button" onclick="resetForm()" class="btn-secondary">
+                                    <i class="fas fa-times"></i> Annuler
+                                </button>
+                                <button type="button" onclick="previewProject()" class="btn-warning" type="button">
+                                    <i class="fas fa-eye"></i> Aperçu
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tab: Gérer les projets -->
+                <div id="tab-manage-projects" class="tab-content">
+                    <div class="admin-projects-container">
+                        <div class="section-header">
+                            <h2><i class="fas fa-list"></i> Liste des projets (<span id="projects-count">0</span>)</h2>
+                            <div class="filter-controls">
+                                <input type="text" id="search-projects" placeholder="Rechercher..." class="search-input">
+                                <select id="filter-status" class="filter-select">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="completed">Terminé</option>
+                                    <option value="in-progress">En cours</option>
+                                    <option value="planned">Planifié</option>
+                                </select>
+                                <button onclick="sortProjects('date')" class="btn-secondary">
+                                    <i class="fas fa-sort"></i> Trier par date
+                                </button>
+                            </div>
+                        </div>
+                        <div id="admin-projects-list" class="admin-projects-list">
+                            <!-- Les projets seront chargés ici -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Gestionnaire de fichiers -->
+                <div id="tab-file-manager" class="tab-content">
+                    <div class="file-manager-container">
+                        <h2><i class="fas fa-folder-open"></i> Gestionnaire de fichiers</h2>
+                        <div class="file-stats">
+                            <div class="file-stat">
+                                <i class="fas fa-images"></i>
+                                <span id="images-count">0 images</span>
+                            </div>
+                            <div class="file-stat">
+                                <i class="fas fa-file-pdf"></i>
+                                <span id="docs-count">0 documents</span>
+                            </div>
+                            <div class="file-stat">
+                                <i class="fas fa-hdd"></i>
+                                <span id="storage-used">0 KB utilisés</span>
+                            </div>
+                        </div>
+                        <div id="files-grid" class="files-grid">
+                            <p class="no-files">Aucun fichier stocké. Ajoutez des fichiers dans vos projets.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Paramètres -->
+                <div id="tab-settings" class="tab-content">
+                    <div class="settings-container">
+                        <h2><i class="fas fa-cog"></i> Paramètres</h2>
+                        
+                        <div class="settings-section">
+                            <h3><i class="fas fa-lock"></i> Sécurité</h3>
+                            <div class="form-group">
+                                <label for="new-password">Changer le mot de passe</label>
+                                <input type="password" id="new-password" placeholder="Nouveau mot de passe">
+                                <button onclick="changePassword()" class="btn-primary">
+                                    <i class="fas fa-key"></i> Modifier
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fas fa-database"></i> Données</h3>
+                            <button onclick="exportData()" class="btn-primary">
+                                <i class="fas fa-download"></i> Exporter tous les projets (JSON)
+                            </button>
+                            <button onclick="importData()" class="btn-secondary">
+                                <i class="fas fa-upload"></i> Importer des projets
+                            </button>
+                            <button onclick="clearAllData()" class="btn-danger">
+                                <i class="fas fa-trash"></i> Réinitialiser tout
+                            </button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fas fa-info-circle"></i> Informations</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <strong>Version:</strong>
+                                    <span>1.0.0</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Stockage:</strong>
+                                    <span>LocalStorage (navigateur)</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Backup:</strong>
+                                    <span>Manuel (export JSON)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
+    </div>
+
+    <!-- Modal d'aperçu projet -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content preview-modal">
+            <div class="modal-header">
+                <h2>Aperçu du projet</h2>
+                <button class="modal-close" onclick="closePreview()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="preview-content">
+                <!-- Contenu généré dynamiquement -->
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
     <script>
         let projects = [];
         let editingId = null;
+        let uploadedFiles = {};
+        let technologies = [];
 
         // Connexion admin
         function login() {
             const password = document.getElementById('admin-password').value;
-            if (password === 'admin123') {
+            const savedPassword = localStorage.getItem('adminPassword') || 'admin123';
+            
+            if (password === savedPassword) {
                 document.getElementById('login-modal').style.display = 'none';
                 document.getElementById('admin-content').style.display = 'block';
                 loadAdminProjects();
+                updateStats();
             } else {
                 alert('Mot de passe incorrect');
             }
@@ -113,189 +387,719 @@
 
         // Déconnexion
         function logout() {
-            window.location.href = 'index.html';
+            if (confirm('Voulez-vous vraiment vous déconnecter?')) {
+                window.location.href = 'index.html';
+            }
         }
 
-        // Charger les projets depuis le JSON
+        // Changer d'onglet
+        function switchTab(tabName) {
+            // Cacher tous les onglets
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Afficher l'onglet sélectionné
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.closest('.tab-btn').classList.add('active');
+
+            // Actualiser les données si nécessaire
+            if (tabName === 'manage-projects') {
+                displayAdminProjects();
+            } else if (tabName === 'file-manager') {
+                displayFiles();
+            }
+        }
+
+        // Charger les projets
         function loadAdminProjects() {
-            fetch('projects.json')
-                .then(response => response.json())
-                .then(data => {
-                    projects = data;
-                    displayAdminProjects();
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    // Utiliser les projets par défaut si le fichier n'existe pas
-                    projects = getDefaultProjects();
-                    displayAdminProjects();
-                });
+            const saved = localStorage.getItem('portfolioProjects');
+            if (saved) {
+                projects = JSON.parse(saved);
+            } else {
+                fetch('projects.json')
+                    .then(r => r.json())
+                    .then(data => {
+                        projects = data;
+                        displayAdminProjects();
+                    })
+                    .catch(() => {
+                        projects = [];
+                    });
+            }
+            displayAdminProjects();
         }
 
         // Afficher les projets dans l'admin
         function displayAdminProjects() {
             const list = document.getElementById('admin-projects-list');
+            const searchTerm = document.getElementById('search-projects')?.value.toLowerCase() || '';
+            const filterStatus = document.getElementById('filter-status')?.value || '';
+
             list.innerHTML = '';
-            document.getElementById('projects-count').textContent = projects.length;
+            
+            let filteredProjects = projects.filter(p => {
+                const matchSearch = !searchTerm || p.title.toLowerCase().includes(searchTerm) || 
+                                   p.description.toLowerCase().includes(searchTerm);
+                const matchStatus = !filterStatus || p.status === filterStatus;
+                return matchSearch && matchStatus;
+            });
 
-            projects.forEach(project => {
+            document.getElementById('projects-count').textContent = filteredProjects.length;
+            document.getElementById('tab-count').textContent = projects.length;
+
+            if (filteredProjects.length === 0) {
+                list.innerHTML = '<p class="no-projects">Aucun projet trouvé.</p>';
+                return;
+            }
+
+            filteredProjects.forEach(project => {
                 const item = document.createElement('div');
-                item.className = 'admin-project-item';
+                item.className = 'admin-project-card';
 
-                const info = document.createElement('div');
-                info.className = 'admin-project-info';
-                info.innerHTML = `
-                    <h3>${project.title}</h3>
-                    <p>${project.date}</p>
+                const statusClass = project.status || 'completed';
+                const statusText = {
+                    'completed': 'Terminé',
+                    'in-progress': 'En cours',
+                    'planned': 'Planifié'
+                }[statusClass] || 'Terminé';
+
+                item.innerHTML = `
+                    <div class="project-card-image">
+                        <img src="${project.images[0]}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/150/1e3a8a/ffffff?text=Image'">
+                        ${project.featured ? '<span class="featured-badge"><i class="fas fa-star"></i></span>' : ''}
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-card-header">
+                            <h3>${project.title}</h3>
+                            <span class="status-badge status-${statusClass}">${statusText}</span>
+                        </div>
+                        <p class="project-card-date"><i class="fas fa-calendar"></i> ${project.date}</p>
+                        <p class="project-card-desc">${project.description}</p>
+                        <div class="project-card-tech">
+                            ${project.technologies.map(t => `<span class="tech-badge-small">${t}</span>`).join('')}
+                        </div>
+                        <div class="project-card-links">
+                            ${project.github ? `<a href="${project.github}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
+                            ${project.demo ? `<a href="${project.demo}" target="_blank" title="Demo"><i class="fas fa-external-link-alt"></i></a>` : ''}
+                            ${project.files && project.files.length > 0 ? `<span title="Fichiers"><i class="fas fa-paperclip"></i> ${project.files.length}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="project-card-actions">
+                        <button onclick="viewProject(${project.id})" class="btn-view" title="Voir">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="editProject(${project.id})" class="btn-edit" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="duplicateProject(${project.id})" class="btn-duplicate" title="Dupliquer">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button onclick="deleteProject(${project.id})" class="btn-delete" title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 `;
-
-                const actions = document.createElement('div');
-                actions.className = 'admin-project-actions';
-                
-                const editBtn = document.createElement('button');
-                editBtn.className = 'btn-edit';
-                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                editBtn.onclick = () => editProject(project);
-
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'btn-delete';
-                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                deleteBtn.onclick = () => deleteProject(project.id);
-
-                actions.appendChild(editBtn);
-                actions.appendChild(deleteBtn);
-
-                item.appendChild(info);
-                item.appendChild(actions);
 
                 list.appendChild(item);
             });
         }
 
+        // Gérer l'upload d'image principale
+        document.getElementById('project-image-file')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Le fichier est trop volumineux (max 5MB)');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedFiles.mainImage = event.target.result;
+                    document.getElementById('preview-img').src = event.target.result;
+                    document.getElementById('image-preview').style.display = 'block';
+                    document.querySelector('.upload-placeholder').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Supprimer l'image
+        function removeImage() {
+            delete uploadedFiles.mainImage;
+            document.getElementById('project-image-file').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+            document.querySelector('.upload-placeholder').style.display = 'flex';
+        }
+
+        // Gérer la galerie d'images
+        document.getElementById('gallery-images')?.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            const preview = document.getElementById('gallery-preview');
+            
+            uploadedFiles.gallery = uploadedFiles.gallery || [];
+            
+            files.forEach(file => {
+                if (file.size > 5 * 1024 * 1024) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedFiles.gallery.push(event.target.result);
+                    
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'gallery-item';
+                    imgDiv.innerHTML = `
+                        <img src="${event.target.result}" alt="Gallery">
+                        <button type="button" onclick="removeGalleryImage(${uploadedFiles.gallery.length - 1})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    preview.appendChild(imgDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Supprimer une image de la galerie
+        function removeGalleryImage(index) {
+            uploadedFiles.gallery.splice(index, 1);
+            const preview = document.getElementById('gallery-preview');
+            preview.children[index].remove();
+        }
+
+        // Gérer les fichiers associés
+        document.getElementById('project-files')?.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            const list = document.getElementById('files-list');
+            
+            uploadedFiles.documents = uploadedFiles.documents || [];
+            
+            files.forEach(file => {
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`${file.name} est trop volumineux (max 10MB)`);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedFiles.documents.push({
+                        name: file.name,
+                        type: file.type,
+                        data: event.target.result
+                    });
+                    
+                    const fileDiv = document.createElement('div');
+                    fileDiv.className = 'file-item';
+                    fileDiv.innerHTML = `
+                        <i class="fas fa-file-${getFileIcon(file.type)}"></i>
+                        <span>${file.name}</span>
+                        <button type="button" onclick="removeFile(${uploadedFiles.documents.length - 1})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    list.appendChild(fileDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Obtenir l'icône appropriée pour le type de fichier
+        function getFileIcon(type) {
+            if (type.includes('pdf')) return 'pdf';
+            if (type.includes('word')) return 'word';
+            if (type.includes('zip')) return 'archive';
+            return 'alt';
+        }
+
+        // Supprimer un fichier
+        function removeFile(index) {
+            uploadedFiles.documents.splice(index, 1);
+            const list = document.getElementById('files-list');
+            list.children[index].remove();
+        }
+
+        // Gérer les technologies avec badges
+        document.getElementById('project-technologies')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const tech = this.value.trim();
+                if (tech && !technologies.includes(tech)) {
+                    technologies.push(tech);
+                    addTechBadge(tech);
+                    this.value = '';
+                }
+            }
+        });
+
+        function addTechBadge(tech) {
+            const container = document.getElementById('tech-badges');
+            const badge = document.createElement('span');
+            badge.className = 'tech-badge-editable';
+            badge.innerHTML = `
+                ${tech}
+                <button type="button" onclick="removeTech('${tech}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(badge);
+        }
+
+        function removeTech(tech) {
+            technologies = technologies.filter(t => t !== tech);
+            updateTechBadges();
+        }
+
+        function updateTechBadges() {
+            const container = document.getElementById('tech-badges');
+            container.innerHTML = '';
+            technologies.forEach(tech => addTechBadge(tech));
+        }
+
+        // Compteurs de caractères
+        document.getElementById('project-description')?.addEventListener('input', function() {
+            document.getElementById('desc-count').textContent = this.value.length;
+        });
+
+        document.getElementById('project-details')?.addEventListener('input', function() {
+            document.getElementById('details-count').textContent = this.value.length;
+        });
+
         // Soumettre le formulaire
-        document.getElementById('project-form').addEventListener('submit', function(e) {
+        document.getElementById('project-form')?.addEventListener('submit', function(e) {
             e.preventDefault();
+
+            const imageUrl = document.getElementById('project-image-url').value;
+            const mainImage = imageUrl || uploadedFiles.mainImage || 'https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Nouveau+Projet';
 
             const project = {
                 id: editingId || Date.now(),
                 title: document.getElementById('project-title').value,
                 description: document.getElementById('project-description').value,
                 date: document.getElementById('project-date').value,
-                technologies: document.getElementById('project-technologies').value
-                    .split(',').map(t => t.trim()).filter(t => t),
-                images: [document.getElementById('project-image').value || 
-                    'https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Nouveau+Projet'],
-                details: document.getElementById('project-details').value
+                technologies: technologies,
+                images: [mainImage, ...(uploadedFiles.gallery || [])],
+                details: document.getElementById('project-details').value,
+                github: document.getElementById('project-github').value,
+                demo: document.getElementById('project-demo').value,
+                status: document.getElementById('project-status').value,
+                featured: document.getElementById('project-featured').checked,
+                files: uploadedFiles.documents || [],
+                updatedAt: new Date().toISOString()
             };
 
             if (editingId) {
-                // Modifier
                 const index = projects.findIndex(p => p.id === editingId);
                 projects[index] = project;
-                alert('Projet mis à jour avec succès!');
+                alert('✅ Projet mis à jour avec succès!');
             } else {
-                // Ajouter
                 projects.push(project);
-                alert('Projet ajouté avec succès!');
+                alert('✅ Projet ajouté avec succès!');
             }
 
             saveProjects();
             resetForm();
             displayAdminProjects();
+            updateStats();
+            switchTab('manage-projects');
         });
 
         // Éditer un projet
-        function editProject(project) {
+        function editProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
             editingId = project.id;
-            document.getElementById('edit-id').value = project.id;
+            
             document.getElementById('project-title').value = project.title;
             document.getElementById('project-description').value = project.description;
             document.getElementById('project-date').value = project.date;
-            document.getElementById('project-technologies').value = project.technologies.join(', ');
-            document.getElementById('project-image').value = project.images[0];
-            document.getElementById('project-details').value = project.details;
+            document.getElementById('project-details').value = project.details || '';
+            document.getElementById('project-github').value = project.github || '';
+            document.getElementById('project-demo').value = project.demo || '';
+            document.getElementById('project-status').value = project.status || 'completed';
+            document.getElementById('project-featured').checked = project.featured || false;
 
-            document.getElementById('form-title').textContent = 'Modifier le projet';
-            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
-            document.getElementById('cancel-btn').style.display = 'inline-block';
+            // Technologies
+            technologies = [...project.technologies];
+            updateTechBadges();
 
+            // Image principale
+            if (project.images && project.images[0]) {
+                if (project.images[0].startsWith('data:')) {
+                    uploadedFiles.mainImage = project.images[0];
+                    document.getElementById('preview-img').src = project.images[0];
+                    document.getElementById('image-preview').style.display = 'block';
+                    document.querySelector('.upload-placeholder').style.display = 'none';
+                } else {
+                    document.getElementById('project-image-url').value = project.images[0];
+                }
+            }
+
+            // Galerie
+            if (project.images && project.images.length > 1) {
+                uploadedFiles.gallery = project.images.slice(1);
+                const preview = document.getElementById('gallery-preview');
+                preview.innerHTML = '';
+                uploadedFiles.gallery.forEach((img, i) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'gallery-item';
+                    imgDiv.innerHTML = `
+                        <img src="${img}" alt="Gallery">
+                        <button type="button" onclick="removeGalleryImage(${i})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    preview.appendChild(imgDiv);
+                });
+            }
+
+            // Fichiers
+            if (project.files && project.files.length > 0) {
+                uploadedFiles.documents = [...project.files];
+                const list = document.getElementById('files-list');
+                list.innerHTML = '';
+                project.files.forEach((file, i) => {
+                    const fileDiv = document.createElement('div');
+                    fileDiv.className = 'file-item';
+                    fileDiv.innerHTML = `
+                        <i class="fas fa-file-${getFileIcon(file.type)}"></i>
+                        <span>${file.name}</span>
+                        <button type="button" onclick="removeFile(${i})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    list.appendChild(fileDiv);
+                });
+            }
+
+            // Mettre à jour l'interface
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-edit"></i> Modifier le projet';
+            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save"></i> Enregistrer les modifications';
+
+            // Compteurs
+            document.getElementById('desc-count').textContent = project.description.length;
+            document.getElementById('details-count').textContent = (project.details || '').length;
+
+            switchTab('add-project');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Annuler l'édition
-        function cancelEdit() {
-            resetForm();
+        // Voir un projet
+        function viewProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
+            const modal = document.getElementById('preview-modal');
+            const content = document.getElementById('preview-content');
+
+            content.innerHTML = `
+                <div class="preview-project">
+                    <img src="${project.images[0]}" alt="${project.title}">
+                    <h3>${project.title}</h3>
+                    <p class="preview-date">${project.date}</p>
+                    <p class="preview-description">${project.description}</p>
+                    ${project.details ? `<p class="preview-details">${project.details}</p>` : ''}
+                    <div class="preview-tech">
+                        ${project.technologies.map(t => `<span class="tech-badge">${t}</span>`).join('')}
+                    </div>
+                    ${project.github || project.demo ? `
+                        <div class="preview-links">
+                            ${project.github ? `<a href="${project.github}" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> GitHub</a>` : ''}
+                            ${project.demo ? `<a href="${project.demo}" target="_blank" class="btn-secondary"><i class="fas fa-external-link-alt"></i> Démo</a>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        // Dupliquer un projet
+        function duplicateProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
+            const duplicate = {
+                ...project,
+                id: Date.now(),
+                title: project.title + ' (Copie)',
+                updatedAt: new Date().toISOString()
+            };
+
+            projects.push(duplicate);
+            saveProjects();
+            displayAdminProjects();
+            updateStats();
+            alert('✅ Projet dupliqué avec succès!');
+        }
+
+        // Supprimer un projet
+        function deleteProject(id) {
+            if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce projet?\nCette action est irréversible.')) return;
+
+            projects = projects.filter(p => p.id !== id);
+            saveProjects();
+            displayAdminProjects();
+            updateStats();
+            alert('✅ Projet supprimé avec succès!');
         }
 
         // Réinitialiser le formulaire
         function resetForm() {
             editingId = null;
+            technologies = [];
+            uploadedFiles = {};
+            
             document.getElementById('project-form').reset();
-            document.getElementById('edit-id').value = '';
-            document.getElementById('form-title').textContent = 'Ajouter un nouveau projet';
-            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-plus"></i> Ajouter le projet';
-            document.getElementById('cancel-btn').style.display = 'none';
+            document.getElementById('tech-badges').innerHTML = '';
+            document.getElementById('gallery-preview').innerHTML = '';
+            document.getElementById('files-list').innerHTML = '';
+            document.getElementById('image-preview').style.display = 'none';
+            document.querySelector('.upload-placeholder').style.display = 'flex';
+            
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-plus-circle"></i> Ajouter un nouveau projet';
+            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save"></i> Enregistrer le projet';
+            document.getElementById('desc-count').textContent = '0';
+            document.getElementById('details-count').textContent = '0';
         }
 
-        // Supprimer un projet
-        function deleteProject(id) {
-            if (confirm('Êtes-vous sûr de vouloir supprimer ce projet?')) {
-                projects = projects.filter(p => p.id !== id);
-                saveProjects();
-                displayAdminProjects();
+        // Aperçu du projet
+        function previewProject() {
+            const title = document.getElementById('project-title').value || 'Titre du projet';
+            const description = document.getElementById('project-description').value || 'Description...';
+            const details = document.getElementById('project-details').value;
+            const date = document.getElementById('project-date').value || 'Date';
+            const imageUrl = document.getElementById('project-image-url').value;
+            const mainImage = imageUrl || uploadedFiles.mainImage || 'https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Apercu';
+
+            const modal = document.getElementById('preview-modal');
+            const content = document.getElementById('preview-content');
+
+            content.innerHTML = `
+                <div class="preview-project">
+                    <img src="${mainImage}" alt="${title}">
+                    <h3>${title}</h3>
+                    <p class="preview-date">${date}</p>
+                    <p class="preview-description">${description}</p>
+                    ${details ? `<p class="preview-details">${details}</p>` : ''}
+                    <div class="preview-tech">
+                        ${technologies.map(t => `<span class="tech-badge">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').style.display = 'none';
+        }
+
+        // Sauvegarder les projets
+        function saveProjects() {
+            localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+            localStorage.setItem('lastUpdate', new Date().toISOString());
+        }
+
+        // Mettre à jour les statistiques
+        function updateStats() {
+            document.getElementById('total-projects').textContent = projects.length;
+            
+            let totalImages = 0;
+            let allTechnologies = new Set();
+            
+            projects.forEach(p => {
+                totalImages += (p.images?.length || 0);
+                p.technologies?.forEach(t => allTechnologies.add(t));
+            });
+            
+            document.getElementById('total-images').textContent = totalImages;
+            document.getElementById('total-technologies').textContent = allTechnologies.size;
+            
+            const lastUpdate = localStorage.getItem('lastUpdate');
+            if (lastUpdate) {
+                const date = new Date(lastUpdate);
+                document.getElementById('last-update').textContent = date.toLocaleDateString('fr-FR');
             }
         }
 
-        // Sauvegarder dans localStorage
-        function saveProjects() {
-            localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+        // Trier les projets
+        function sortProjects(by) {
+            if (by === 'date') {
+                projects.sort((a, b) => {
+                    return new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
+                });
+            }
+            displayAdminProjects();
         }
 
-        // Copier le JSON
-        function copyJSON() {
-            const json = JSON.stringify(projects, null, 2);
-            navigator.clipboard.writeText(json).then(() => {
-                alert('JSON copié dans le presse-papier! Collez-le dans votre fichier projects.json');
+        // Filtrer les projets
+        document.getElementById('search-projects')?.addEventListener('input', displayAdminProjects);
+        document.getElementById('filter-status')?.addEventListener('change', displayAdminProjects);
+
+        // Afficher les fichiers
+        function displayFiles() {
+            const grid = document.getElementById('files-grid');
+            const allFiles = [];
+            let totalSize = 0;
+            let imageCount = 0;
+            let docCount = 0;
+
+            projects.forEach(project => {
+                if (project.images) {
+                    project.images.forEach(img => {
+                        if (img.startsWith('data:')) {
+                            allFiles.push({ type: 'image', data: img, project: project.title });
+                            imageCount++;
+                            totalSize += Math.round(img.length * 0.75); // Approximation base64
+                        }
+                    });
+                }
+                if (project.files) {
+                    project.files.forEach(file => {
+                        allFiles.push({ type: 'document', data: file, project: project.title });
+                        docCount++;
+                        totalSize += Math.round(file.data.length * 0.75);
+                    });
+                }
+            });
+
+            document.getElementById('images-count').textContent = `${imageCount} image${imageCount > 1 ? 's' : ''}`;
+            document.getElementById('docs-count').textContent = `${docCount} document${docCount > 1 ? 's' : ''}`;
+            document.getElementById('storage-used').textContent = `${(totalSize / 1024).toFixed(2)} KB utilisés`;
+
+            if (allFiles.length === 0) {
+                grid.innerHTML = '<p class="no-files">Aucun fichier stocké.</p>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            allFiles.forEach((file, index) => {
+                const fileCard = document.createElement('div');
+                fileCard.className = 'file-card';
+                
+                if (file.type === 'image') {
+                    fileCard.innerHTML = `
+                        <img src="${file.data}" alt="Image">
+                        <div class="file-card-info">
+                            <p><strong>Projet:</strong> ${file.project}</p>
+                        </div>
+                    `;
+                } else {
+                    fileCard.innerHTML = `
+                        <div class="file-icon">
+                            <i class="fas fa-file-${getFileIcon(file.data.type)}"></i>
+                        </div>
+                        <div class="file-card-info">
+                            <p><strong>${file.data.name}</strong></p>
+                            <p>Projet: ${file.project}</p>
+                        </div>
+                    `;
+                }
+                
+                grid.appendChild(fileCard);
             });
         }
 
-        // Projets par défaut
-        function getDefaultProjects() {
-            return [
-                {
-                    id: 1,
-                    title: "Application Web Full-Stack",
-                    description: "Développement d'une application web complète avec Git/GitHub",
-                    date: "02/2025 - 05/2025",
-                    technologies: ["Laravel", "MySQL", "Git"],
-                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+1"],
-                    details: "Conception et mise en place d'une base de données relationnelle. Initiation au travail collaboratif avec Git/GitHub."
-                },
-                {
-                    id: 2,
-                    title: "Mini-projet Frontend",
-                    description: "Réalisation d'un mini-projet en développement front-end",
-                    date: "06/2024 - 08/2024",
-                    technologies: ["HTML", "CSS", "JavaScript", "Canva"],
-                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+2"],
-                    details: "Conception de maquettes pour une interface utilisateur moderne et responsive."
-                },
-                {
-                    id: 3,
-                    title: "Initiation Bureautique Avancée",
-                    description: "Gestion de données avec outils bureautiques",
-                    date: "07/2023 - 08/2023",
-                    technologies: ["Excel", "Access", "SQL"],
-                    images: ["https://via.placeholder.com/400x250/1e3a8a/ffffff?text=Projet+3"],
-                    details: "Découverte des bases de la programmation et gestion de bases de données."
-                }
-            ];
+        // Exporter les données
+        function exportData() {
+            const dataStr = JSON.stringify(projects, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `portfolio-projects-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            alert('✅ Données exportées avec succès!');
         }
 
-        // Permettre la connexion avec Enter
-        document.getElementById('admin-password').addEventListener('keypress', function(e) {
+        // Importer les données
+        function importData() {
+            document.getElementById('import-file').click();
+        }
+
+        document.getElementById('import-file')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const importedProjects = JSON.parse(event.target.result);
+                    if (!Array.isArray(importedProjects)) {
+                        throw new Error('Format invalide');
+                    }
+                    
+                    if (confirm(`⚠️ Importer ${importedProjects.length} projet(s)?\nCela remplacera tous vos projets actuels.`)) {
+                        projects = importedProjects;
+                        saveProjects();
+                        displayAdminProjects();
+                        updateStats();
+                        alert('✅ Données importées avec succès!');
+                    }
+                } catch (error) {
+                    alert('❌ Erreur lors de l\'importation: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Réinitialiser toutes les données
+        function clearAllData() {
+            if (!confirm('⚠️ ATTENTION!\nCette action supprimera TOUS vos projets et données.\nÊtes-vous absolument sûr?')) return;
+            if (!confirm('⚠️ Dernière confirmation!\nToutes vos données seront perdues définitivement.')) return;
+
+            localStorage.removeItem('portfolioProjects');
+            localStorage.removeItem('lastUpdate');
+            projects = [];
+            displayAdminProjects();
+            updateStats();
+            alert('✅ Toutes les données ont été supprimées.');
+        }
+
+        // Changer le mot de passe
+        function changePassword() {
+            const newPassword = document.getElementById('new-password').value;
+            if (!newPassword || newPassword.length < 6) {
+                alert('⚠️ Le mot de passe doit contenir au moins 6 caractères.');
+                return;
+            }
+
+            if (confirm('Changer le mot de passe?')) {
+                localStorage.setItem('adminPassword', newPassword);
+                document.getElementById('new-password').value = '';
+                alert('✅ Mot de passe modifié avec succès!');
+            }
+        }
+
+        // Fermer les modals en cliquant en dehors
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Connexion avec Enter
+        document.getElementById('admin-password')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 login();
+            }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si déjà connecté (session)
+            const sessionActive = sessionStorage.getItem('adminSession');
+            if (sessionActive === 'true') {
+                document.getElementById('login-modal').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                loadAdminProjects();
+                updateStats();
             }
         });
     </script>
