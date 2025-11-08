@@ -14,48 +14,46 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
-            min-height: 100vh;
+            background: #0f172a;
             color: #e2e8f0;
+            line-height: 1.6;
         }
 
         /* Header */
         .header {
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(15, 23, 42, 0.8);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 0;
         }
 
         .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 2rem;
         }
 
-        .back-link {
+        .back-link, .admin-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: #06b6d4;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link {
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #06b6d4;
         }
 
         .back-link:hover {
@@ -64,18 +62,9 @@
         }
 
         .admin-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #f59e0b;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
             background: rgba(245, 158, 11, 0.1);
             border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
         }
 
         .admin-link:hover {
@@ -83,213 +72,100 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
-            padding: 5rem 0 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem 3rem;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 1rem;
             background: linear-gradient(135deg, #60a5fa, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 1rem;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
             color: #94a3b8;
+            font-size: 1.2rem;
             max-width: 600px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
+            margin: 0 auto 2rem;
         }
 
-        /* Filtres */
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .filter-btn:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-            color: #3b82f6;
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            border-color: transparent;
-            color: white;
-        }
-
-        /* Compteur de projets */
         .projects-count {
-            text-align: center;
-            color: #64748b;
-            font-size: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .projects-count strong {
-            color: #06b6d4;
-            font-weight: 700;
-        }
-
-        /* Grille de projets */
-        .projects-section {
-            padding: 2rem 0 5rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .project-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 2px;
-            background: linear-gradient(135deg, transparent, transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .project-card:hover::before {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
-        }
-
-        .project-image-container {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.1);
-        }
-
-        .project-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
-            display: flex;
-            align-items: flex-end;
-            padding: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .project-link-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        /* Timeline Container */
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Project Timeline Item */
+        .project-timeline-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow: hidden;
             transition: all 0.3s;
-            font-size: 1rem;
         }
 
-        .project-link-btn:hover {
-            background: rgba(59, 130, 246, 0.8);
-            transform: scale(1.1);
+        .project-timeline-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.3);
         }
 
-        .project-content {
-            padding: 1.75rem;
-        }
-
+        /* Project Header */
         .project-header {
+            padding: 2rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .project-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
 
         .project-title {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: #f1f5f9;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
+            flex: 1;
         }
 
         .project-date {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
             color: #06b6d4;
-            font-size: 0.9rem;
             font-weight: 600;
+            white-space: nowrap;
+            font-size: 0.95rem;
         }
 
         .project-description {
-            color: #94a3b8;
-            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-size: 1.05rem;
             line-height: 1.7;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .project-technologies {
@@ -298,145 +174,31 @@
             gap: 0.5rem;
         }
 
-        .tech-badge {
+        .tech-tag {
             background: rgba(59, 130, 246, 0.15);
             color: #60a5fa;
-            padding: 0.4rem 0.9rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             border: 1px solid rgba(59, 130, 246, 0.3);
-            transition: all 0.3s;
         }
 
-        .project-card:hover .tech-badge {
-            background: rgba(59, 130, 246, 0.25);
-            border-color: rgba(59, 130, 246, 0.5);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideUp 0.4s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            position: sticky;
-            top: 0;
-            background: #1e293b;
-            padding: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #f1f5f9;
-        }
-
-        .modal-close {
-            width: 40px;
-            height: 40px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 50%;
-            color: #ef4444;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            transition: all 0.3s;
-        }
-
-        .modal-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
+        /* Project Content */
+        .project-content {
             padding: 2rem;
         }
 
-        .modal-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
+        .content-section {
             margin-bottom: 2rem;
         }
 
-        .modal-date {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #06b6d4;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+        .content-section:last-child {
+            margin-bottom: 0;
         }
 
-        .modal-description {
-            color: #cbd5e1;
+        .section-title {
             font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .modal-section {
-            margin-bottom: 2rem;
-        }
-
-        .modal-section-title {
-            font-size: 1.25rem;
             font-weight: 700;
             color: #f1f5f9;
             margin-bottom: 1rem;
@@ -445,23 +207,177 @@
             gap: 0.5rem;
         }
 
-        .modal-technologies {
+        .section-title i {
+            color: #06b6d4;
+        }
+
+        .project-details {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.8;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* Images Section */
+        .images-section {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .main-image-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #0f172a;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .main-image-container:hover .main-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
             display: flex;
-            flex-wrap: wrap;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .main-image-container:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .view-image-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #0f172a;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Gallery thumbnails */
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .thumbnail {
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Files Section */
+        .files-list {
+            display: grid;
             gap: 0.75rem;
         }
 
-        .modal-links {
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            color: #f1f5f9;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .file-type {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .file-action {
+            color: #06b6d4;
+            font-size: 1.25rem;
+        }
+
+        /* Links Section */
+        .project-links {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
         }
 
-        .modal-link {
+        .project-link-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.9rem 1.5rem;
+            padding: 1rem 1.5rem;
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 10px;
@@ -471,9 +387,65 @@
             transition: all 0.3s;
         }
 
-        .modal-link:hover {
+        .project-link-btn:hover {
             background: rgba(59, 130, 246, 0.2);
             transform: translateY(-2px);
+        }
+
+        .project-link-btn i {
+            font-size: 1.25rem;
+        }
+
+        /* Image Viewer Modal */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .image-viewer.active {
+            display: flex;
+        }
+
+        .viewer-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .viewer-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .viewer-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(239, 68, 68, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .viewer-close:hover {
+            background: #dc2626;
+            transform: rotate(90deg);
         }
 
         /* Empty State */
@@ -498,6 +470,7 @@
         .empty-text {
             color: #475569;
             font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         /* Loading */
@@ -513,66 +486,56 @@
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
 
             .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .project-image-container {
-                height: 200px;
-            }
-
-            .modal-content {
-                max-height: 95vh;
-            }
-
-            .modal-header {
-                padding: 1.5rem;
-            }
-
-            .modal-body {
-                padding: 1.5rem;
-            }
-
-            .modal-image {
-                height: 250px;
-            }
-
-            .modal-title {
-                font-size: 1.5rem;
+                font-size: 1rem;
             }
 
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
+                padding: 0 1rem;
             }
 
-            .filters {
-                gap: 0.75rem;
+            .timeline-container {
+                padding: 1rem;
             }
 
-            .filter-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
+            .project-header {
+                padding: 1.5rem;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+
+            .project-title-row {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            .gallery-thumbnails {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .project-links {
+                flex-direction: column;
             }
         }
 
-        /* Scrollbar personnalisée */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -585,302 +548,298 @@
             background: linear-gradient(135deg, #3b82f6, #06b6d4);
             border-radius: 10px;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #2563eb, #0891b2);
-        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i>
-                    Retour à l'accueil
-                </a>
-                <a href="admin.html" class="admin-link">
-                    <i class="fas fa-lock"></i>
-                    Administration
-                </a>
-            </div>
+        <div class="header-content">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Retour à l'accueil
+            </a>
+            <a href="admin.html" class="admin-link">
+                <i class="fas fa-lock"></i>
+                Administration
+            </a>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <h1>Mes Projets & Réalisations</h1>
-            <p class="hero-subtitle">
-                Découvrez mes expériences professionnelles et projets académiques 
-                dans le développement web et les systèmes d'information
-            </p>
-
-            <!-- Filtres -->
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th"></i> Tous les projets
-                </button>
-                <button class="filter-btn" data-filter="web">
-                    <i class="fas fa-code"></i> Développement Web
-                </button>
-                <button class="filter-btn" data-filter="database">
-                    <i class="fas fa-database"></i> Base de données
-                </button>
-                <button class="filter-btn" data-filter="frontend">
-                    <i class="fas fa-paint-brush"></i> Frontend
-                </button>
-            </div>
-
-            <div class="projects-count">
-                <strong id="projectCount">0</strong> projet(s) trouvé(s)
-            </div>
+        <h1>Mes Projets & Réalisations</h1>
+        <p class="hero-subtitle">
+            Découvrez en détail mes expériences professionnelles et projets académiques
+        </p>
+        <div class="projects-count">
+            <i class="fas fa-folder"></i>
+            <span id="projectCount">0</span> projet(s)
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects-section">
-        <div class="container">
-            <div id="projectsGrid" class="projects-grid">
-                <!-- Loading -->
-                <div class="loading">
-                    <i class="fas fa-spinner"></i>
-                    <p>Chargement des projets...</p>
-                </div>
+    <!-- Timeline -->
+    <div class="timeline-container">
+        <div id="projectsTimeline">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Chargement des projets...</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <button class="modal-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img id="modalImage" class="modal-image" src="" alt="">
-                <div class="modal-date" id="modalDate"></div>
-                <p class="modal-description" id="modalDescription"></p>
-                
-                <div class="modal-section" id="modalDetailsSection" style="display: none;">
-                    <h3 class="modal-section-title">
-                        <i class="fas fa-info-circle"></i>
-                        Détails du projet
-                    </h3>
-                    <p class="modal-description" id="modalDetails"></p>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">
-                        <i class="fas fa-code"></i>
-                        Technologies utilisées
-                    </h3>
-                    <div class="modal-technologies" id="modalTechnologies"></div>
-                </div>
-
-                <div class="modal-section" id="modalLinksSection" style="display: none;">
-                    <h3 class="modal-section-title">
-                        <i class="fas fa-link"></i>
-                        Liens
-                    </h3>
-                    <div class="modal-links" id="modalLinks"></div>
-                </div>
-            </div>
+    <!-- Image Viewer -->
+    <div class="image-viewer" id="imageViewer">
+        <div class="viewer-content">
+            <button class="viewer-close" onclick="closeViewer()">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="viewerImage" class="viewer-image" src="" alt="">
         </div>
     </div>
 
     <script>
         let allProjects = [];
-        let filteredProjects = [];
 
         // Charger les projets
         async function loadProjects() {
             try {
-                // D'abord essayer de charger depuis localStorage (données de l'admin)
+                // PRIORITÉ 1: LocalStorage (données de l'admin)
                 const savedProjects = localStorage.getItem('portfolioProjects');
                 
-                if (savedProjects) {
+                if (savedProjects && savedProjects !== '[]') {
                     allProjects = JSON.parse(savedProjects);
+                    console.log('✅ Chargé depuis localStorage:', allProjects.length, 'projets');
                 } else {
-                    // Sinon charger depuis le fichier JSON
+                    // PRIORITÉ 2: Fichier JSON
                     const response = await fetch('projects.json');
                     allProjects = await response.json();
+                    console.log('✅ Chargé depuis projects.json:', allProjects.length, 'projets');
                 }
 
-                filteredProjects = [...allProjects];
                 displayProjects();
             } catch (error) {
-                console.error('Erreur lors du chargement des projets:', error);
+                console.error('❌ Erreur chargement:', error);
                 showEmptyState();
             }
         }
 
         // Afficher les projets
         function displayProjects() {
-            const grid = document.getElementById('projectsGrid');
-            document.getElementById('projectCount').textContent = filteredProjects.length;
+            const container = document.getElementById('projectsTimeline');
+            document.getElementById('projectCount').textContent = allProjects.length;
 
-            if (filteredProjects.length === 0) {
+            if (allProjects.length === 0) {
                 showEmptyState();
                 return;
             }
 
-            grid.innerHTML = filteredProjects.map(project => `
-                <div class="project-card" onclick="openModal(${project.id})">
-                    <div class="project-image-container">
-                        <img src="${project.images[0]}" alt="${project.title}" class="project-image" 
-                             onerror="this.src='https://via.placeholder.com/400x250/1e3a8a/ffffff?text=${encodeURIComponent(project.title)}'">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                ${project.github ? `<a href="${project.github}" class="project-link-btn" onclick="event.stopPropagation()" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
-                                ${project.demo ? `<a href="${project.demo}" class="project-link-btn" onclick="event.stopPropagation()" target="_blank" title="Démo"><i class="fas fa-external-link-alt"></i></a>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
+            container.innerHTML = allProjects.map(project => {
+                const hasDetails = project.details && project.details.trim();
+                const hasImages = project.images && project.images.length > 0;
+                const hasFiles = project.files && project.files.length > 0;
+                const hasLinks = project.github || project.demo;
+
+                return `
+                    <div class="project-timeline-item">
+                        <!-- Header -->
                         <div class="project-header">
-                            <h3 class="project-title">${project.title}</h3>
-                            <div class="project-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                ${project.date}
+                            <div class="project-title-row">
+                                <h2 class="project-title">${project.title}</h2>
+                                <div class="project-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    ${project.date}
+                                </div>
+                            </div>
+                            <p class="project-description">${project.description}</p>
+                            <div class="project-technologies">
+                                ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                             </div>
                         </div>
-                        <p class="project-description">${project.description}</p>
-                        <div class="project-technologies">
-                            ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+
+                        <!-- Content -->
+                        <div class="project-content">
+                            ${hasDetails ? `
+                                <div class="content-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        Détails du projet
+                                    </h3>
+                                    <div class="project-details">${project.details}</div>
+                                </div>
+                            ` : ''}
+
+                            ${hasImages ? `
+                                <div class="content-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-images"></i>
+                                        Images du projet
+                                    </h3>
+                                    <div class="images-section">
+                                        <div class="main-image-container" onclick="openViewer('${project.images[0].replace(/'/g, "\\'")}')">
+                                            <img src="${project.images[0]}" alt="${project.title}" class="main-image" 
+                                                 onerror="this.src='https://via.placeholder.com/800x400/1e3a8a/ffffff?text=Image'">
+                                            <div class="image-overlay">
+                                                <button class="view-image-btn">
+                                                    <i class="fas fa-search-plus"></i>
+                                                    Voir en grand
+                                                </button>
+                                            </div>
+                                        </div>
+                                        ${project.images.length > 1 ? `
+                                            <div class="gallery-thumbnails">
+                                                ${project.images.slice(1).map(img => `
+                                                    <div class="thumbnail" onclick="openViewer('${img.replace(/'/g, "\\'")}')">
+                                                        <img src="${img}" alt="Miniature" 
+                                                             onerror="this.src='https://via.placeholder.com/200x150/1e3a8a/ffffff?text=Image'">
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            ${hasFiles ? `
+                                <div class="content-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-file-alt"></i>
+                                        Fichiers associés
+                                    </h3>
+                                    <div class="files-list">
+                                        ${project.files.map(file => `
+                                            <div class="file-item" onclick="downloadFile('${file.data}', '${file.name}')">
+                                                <div class="file-icon">
+                                                    <i class="fas fa-file-${getFileIcon(file.type || file.name)}"></i>
+                                                </div>
+                                                <div class="file-info">
+                                                    <div class="file-name">${file.name}</div>
+                                                    <div class="file-type">${getFileType(file.type || file.name)}</div>
+                                                </div>
+                                                <div class="file-action">
+                                                    <i class="fas fa-download"></i>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            ${hasLinks ? `
+                                <div class="content-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-link"></i>
+                                        Liens externes
+                                    </h3>
+                                    <div class="project-links">
+                                        ${project.github ? `
+                                            <a href="${project.github}" target="_blank" class="project-link-btn">
+                                                <i class="fab fa-github"></i>
+                                                Voir sur GitHub
+                                            </a>
+                                        ` : ''}
+                                        ${project.demo ? `
+                                            <a href="${project.demo}" target="_blank" class="project-link-btn">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                Voir la démo
+                                            </a>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Afficher l'état vide
         function showEmptyState() {
-            const grid = document.getElementById('projectsGrid');
-            grid.innerHTML = `
+            const container = document.getElementById('projectsTimeline');
+            container.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon">
                         <i class="fas fa-folder-open"></i>
                     </div>
-                    <h3 class="empty-title">Aucun projet trouvé</h3>
-                    <p class="empty-text">Il n'y a pas encore de projets à afficher.</p>
+                    <h3 class="empty-title">Aucun projet disponible</h3>
+                    <p class="empty-text">Ajoutez vos premiers projets depuis l'administration</p>
+                    <a href="admin.html" class="admin-link">
+                        <i class="fas fa-plus-circle"></i>
+                        Ajouter un projet
+                    </a>
                 </div>
             `;
         }
 
-        // Ouvrir la modal
-        function openModal(projectId) {
-            const project = allProjects.find(p => p.id === projectId);
-            if (!project) return;
-
-            document.getElementById('modalTitle').textContent = project.title;
-            document.getElementById('modalImage').src = project.images[0];
-            document.getElementById('modalDate').innerHTML = `<i class="fas fa-calendar-alt"></i> ${project.date}`;
-            document.getElementById('modalDescription').textContent = project.description;
-
-            // Détails
-            if (project.details) {
-                document.getElementById('modalDetails').textContent = project.details;
-                document.getElementById('modalDetailsSection').style.display = 'block';
-            } else {
-                document.getElementById('modalDetailsSection').style.display = 'none';
-            }
-
-            // Technologies
-            document.getElementById('modalTechnologies').innerHTML = project.technologies
-                .map(tech => `<span class="tech-badge">${tech}</span>`)
-                .join('');
-
-            // Liens
-            const linksHtml = [];
-            if (project.github) {
-                linksHtml.push(`<a href="${project.github}" target="_blank" class="modal-link"><i class="fab fa-github"></i> Voir sur GitHub</a>`);
-            }
-            if (project.demo) {
-                linksHtml.push(`<a href="${project.demo}" target="_blank" class="modal-link"><i class="fas fa-external-link-alt"></i> Voir la démo</a>`);
-            }
-
-            if (linksHtml.length > 0) {
-                document.getElementById('modalLinks').innerHTML = linksHtml.join('');
-                document.getElementById('modalLinksSection').style.display = 'block';
-            } else {
-                document.getElementById('modalLinksSection').style.display = 'none';
-            }
-
-            document.getElementById('projectModal').classList.add('active');
+        // Ouvrir le viewer d'image
+        function openViewer(imageSrc) {
+            document.getElementById('viewerImage').src = imageSrc;
+            document.getElementById('imageViewer').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Fermer la modal
-        function closeModal() {
-            document.getElementById('projectModal').classList.remove('active');
+        // Fermer le viewer
+        function closeViewer() {
+            document.getElementById('imageViewer').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Filtrer les projets
-        function filterProjects(category) {
-            if (category === 'all') {
-                filteredProjects = [...allProjects];
-            } else {
-                filteredProjects = allProjects.filter(project => {
-                    const techString = project.technologies.join(' ').toLowerCase();
-                    switch(category) {
-                        case 'web':
-                            return techString.includes('laravel') || techString.includes('php') || techString.includes('next');
-                        case 'database':
-                            return techString.includes('mysql') || techString.includes('sql') || techString.includes('access');
-                        case 'frontend':
-                            return techString.includes('html') || techString.includes('css') || techString.includes('javascript');
-                        default:
-                            return true;
-                    }
-                });
-            }
-            displayProjects();
+        // Télécharger un fichier
+        function downloadFile(dataUrl, fileName) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
-        // Gestion des boutons de filtre
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                filterProjects(this.dataset.filter);
-            });
+        // Obtenir l'icône du fichier
+        function getFileIcon(typeOrName) {
+            const str = typeOrName.toLowerCase();
+            if (str.includes('pdf')) return 'pdf';
+            if (str.includes('word') || str.includes('doc')) return 'word';
+            if (str.includes('excel') || str.includes('xls')) return 'excel';
+            if (str.includes('zip') || str.includes('rar')) return 'archive';
+            if (str.includes('image') || str.includes('jpg') || str.includes('png')) return 'image';
+            return 'alt';
+        }
+
+        // Obtenir le type de fichier
+        function getFileType(typeOrName) {
+            const str = typeOrName.toLowerCase();
+            if (str.includes('pdf')) return 'Document PDF';
+            if (str.includes('word') || str.includes('doc')) return 'Document Word';
+            if (str.includes('excel') || str.includes('xls')) return 'Fichier Excel';
+            if (str.includes('zip')) return 'Archive ZIP';
+            if (str.includes('image')) return 'Image';
+            return 'Fichier';
+        }
+
+        // Fermer le viewer avec Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeViewer();
         });
 
-        // Fermer la modal en cliquant à l'extérieur
-        document.getElementById('projectModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+        // Fermer en cliquant sur le fond
+        document.getElementById('imageViewer').addEventListener('click', (e) => {
+            if (e.target.id === 'imageViewer') closeViewer();
         });
 
-        // Fermer avec Échap
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Charger les projets au démarrage
+        // Charger au démarrage
         loadProjects();
 
-        // Rafraîchir automatiquement toutes les 2 secondes pour détecter les nouveaux projets
+        // Synchronisation automatique toutes les 3 secondes
         setInterval(() => {
             const savedProjects = localStorage.getItem('portfolioProjects');
             if (savedProjects) {
                 const newProjects = JSON.parse(savedProjects);
                 if (JSON.stringify(newProjects) !== JSON.stringify(allProjects)) {
+                    console.log('🔄 Nouveaux projets détectés, actualisation...');
                     allProjects = newProjects;
-                    filteredProjects = [...allProjects];
                     displayProjects();
                 }
             }
-        }, 2000);
+        }, 3000);
     </script>
 </body>
 </html>
