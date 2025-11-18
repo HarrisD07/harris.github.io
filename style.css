@@ -337,6 +337,19 @@ body {
     color: white;
 }
 
+/* Style pour votre photo de profil */
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-circle:hover .profile-photo {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
 /* ============================================
    SECTION TITLE
    ============================================ */
