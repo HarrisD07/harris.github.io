@@ -298,6 +298,7 @@ body {
     box-shadow: 0 0 100px rgba(37, 99, 235, 0.4);
     position: relative;
     animation: float 3s ease-in-out infinite;
+    overflow: hidden;
 }
 
 @keyframes float {
@@ -335,6 +336,7 @@ body {
 .profile-circle i {
     font-size: 180px;
     color: white;
+    z-index: 1;
 }
 
 /* Style pour votre photo de profil */
@@ -342,12 +344,12 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     border-radius: 50%;
-    border: 5px solid rgba(255, 255, 255, 0.2);
-}
-
-.profile-circle:hover .profile-photo {
-    border-color: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 /* ============================================
