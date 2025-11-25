@@ -924,9 +924,12 @@
                         <div class="form-section">
                             <h3 class="section-title">
                                 <i class="fas fa-image"></i>
-                                Image du projet
+                                Images du projet
                             </h3>
+                            
+                            <!-- Image principale -->
                             <div class="form-group">
+                                <label>Image principale *</label>
                                 <input type="file" id="imageFile" accept="image/*" style="display: none" onchange="handleImageUpload(event)">
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageFile').click()">
                                     <div class="upload-icon">
@@ -942,6 +945,27 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <!-- Images supplémentaires -->
+                            <div class="form-group">
+                                <label>Images supplémentaires (galerie)</label>
+                                <input type="file" id="galleryFiles" accept="image/*" multiple style="display: none" onchange="handleGalleryUpload(event)">
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('galleryFiles').click()">
+                                    <i class="fas fa-images"></i> Ajouter plusieurs images
+                                </button>
+                                <div id="galleryPreview" class="gallery-preview"></div>
+                            </div>
+
+                            <!-- Fichiers PDF et documents -->
+                            <div class="form-group">
+                                <label>Fichiers PDF et documents</label>
+                                <input type="file" id="pdfFiles" accept=".pdf,.doc,.docx,.txt,.zip" multiple style="display: none" onchange="handlePDFUpload(event)">
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('pdfFiles').click()">
+                                    <i class="fas fa-file-pdf"></i> Ajouter des PDF/Documents
+                                </button>
+                                <div id="pdfPreview" class="files-preview"></div>
+                            </div>
+                            
                             <div class="form-group">
                                 <label>OU URL d'une image</label>
                                 <input type="url" id="imageUrl" placeholder="https://exemple.com/image.jpg">
