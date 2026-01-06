@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dossier Numérique Personnel - Harris Kosoko</title>
+    <title>Retour de Stage - Harris Kosoko</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,9 +14,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0f172a;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #e2e8f0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -28,10 +29,22 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1.5rem 0;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -39,21 +52,18 @@
             align-items: center;
         }
 
-        .back-link, .admin-link {
+        .back-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .back-link {
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid rgba(6, 182, 212, 0.3);
             color: #06b6d4;
+            transition: all 0.3s ease;
         }
 
         .back-link:hover {
@@ -61,28 +71,30 @@
             transform: translateX(-5px);
         }
 
-        .admin-link {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: #f59e0b;
-        }
-
-        .admin-link:hover {
-            background: rgba(245, 158, 11, 0.2);
-        }
-
         /* Hero Section */
         .hero {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 4rem 2rem 3rem;
             text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #60a5fa, #06b6d4);
+            background: linear-gradient(135deg, #60a5fa, #06b6d4, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
@@ -90,12 +102,11 @@
 
         .hero-subtitle {
             color: #94a3b8;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
         }
 
-        .stage-info {
+        .stage-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -107,99 +118,94 @@
             font-weight: 600;
         }
 
-        /* Main Container */
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
 
         /* Section Card */
-        .section-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            margin-bottom: 2rem;
+        .section {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 3rem;
             overflow: hidden;
-            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeInSection 0.6s ease-out forwards;
         }
 
-        .section-card:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.3);
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes fadeInSection {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 20px 60px -10px rgba(59, 130, 246, 0.3);
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
         }
 
         /* Section Header */
         .section-header {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
-            padding: 2rem;
-            border-bottom: 1px solid #334155;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .section-header:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.3));
-        }
-
-        .section-title-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #f1f5f9;
+            padding: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-number {
+            display: inline-block;
             background: rgba(6, 182, 212, 0.2);
             color: #06b6d4;
             padding: 0.5rem 1rem;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
 
-        .toggle-icon {
-            font-size: 1.5rem;
-            color: #60a5fa;
-            transition: transform 0.3s;
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
         }
 
-        .section-header.active .toggle-icon {
-            transform: rotate(180deg);
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.5);
         }
 
         /* Section Content */
         .section-content {
-            padding: 2rem;
-            display: none;
-        }
-
-        .section-content.active {
-            display: block;
+            padding: 2.5rem;
         }
 
         .subsection {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .subsection:last-child {
@@ -207,10 +213,10 @@
         }
 
         .subsection-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #60a5fa;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -218,302 +224,278 @@
 
         .subsection-title i {
             color: #06b6d4;
+            font-size: 1.2rem;
         }
 
         .content-text {
             color: #cbd5e1;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             padding: 1.5rem;
             background: rgba(15, 23, 42, 0.5);
             border-radius: 12px;
             border-left: 4px solid #3b82f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-text p {
             margin-bottom: 1rem;
         }
 
-        .editable-zone {
-            min-height: 100px;
-            padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.7);
-            border: 2px dashed #334155;
-            border-radius: 12px;
-            color: #94a3b8;
-            cursor: text;
-            transition: all 0.3s;
+        .content-text p:last-child {
+            margin-bottom: 0;
         }
 
-        .editable-zone:hover {
-            border-color: #3b82f6;
-            background: rgba(15, 23, 42, 0.9);
-        }
-
-        .editable-zone:focus {
-            outline: none;
-            border-color: #06b6d4;
-            border-style: solid;
-            color: #e2e8f0;
-        }
-
-        .editable-zone[contenteditable="true"]:empty:before {
-            content: attr(data-placeholder);
-            color: #475569;
-        }
-
-        /* List Styles */
-        .custom-list {
+        .content-text ul {
             list-style: none;
             padding-left: 0;
         }
 
-        .custom-list li {
-            padding: 1rem 1.5rem;
-            background: rgba(15, 23, 42, 0.5);
-            border-left: 4px solid #06b6d4;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            color: #cbd5e1;
-            transition: all 0.3s;
+        .content-text ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
         }
 
-        .custom-list li:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateX(5px);
-        }
-
-        .custom-list li strong {
-            color: #60a5fa;
-            display: block;
-            margin-bottom: 0.25rem;
+        .content-text ul li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #06b6d4;
+            font-weight: bold;
         }
 
         /* Images Gallery */
         .images-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .image-upload-zone {
+        .image-item {
+            position: relative;
             aspect-ratio: 16/9;
-            background: rgba(15, 23, 42, 0.5);
-            border: 2px dashed #334155;
             border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .image-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-placeholder {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-upload-zone:hover {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .image-upload-zone i {
-            font-size: 2rem;
+            height: 100%;
             color: #475569;
+        }
+
+        .image-placeholder i {
+            font-size: 3rem;
             margin-bottom: 0.5rem;
         }
 
-        .image-upload-zone span {
+        /* PDF Section */
+        .pdf-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .pdf-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(10px);
+        }
+
+        .pdf-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(239, 68, 68, 0.5);
+        }
+
+        .pdf-info {
+            flex: 1;
+        }
+
+        .pdf-name {
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .pdf-desc {
             color: #64748b;
             font-size: 0.9rem;
         }
 
-        .uploaded-image {
+        .pdf-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .pdf-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .view-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .download-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .download-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
         }
 
-        .remove-image {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: none;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
         }
 
-        .image-upload-zone:hover .remove-image {
-            display: flex;
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
         }
 
-        .remove-image:hover {
-            background: #dc2626;
-            transform: scale(1.1);
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
-        /* Files Section */
-        .files-list {
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid #334155;
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
             border-radius: 10px;
+            box-shadow: 0 25px 100px -20px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content iframe {
+            width: 90vw;
+            height: 90vh;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 25px 100px -20px rgba(0, 0, 0, 0.8);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .file-item:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: #3b82f6;
-            transform: translateX(5px);
-        }
-
-        .file-icon {
+            background: rgba(239, 68, 68, 0.8);
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            border-radius: 8px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.25rem;
+            transition: all 0.3s ease;
         }
 
-        .file-info {
-            flex: 1;
-        }
-
-        .file-name {
-            color: #f1f5f9;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .file-type {
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        .file-action {
-            color: #06b6d4;
-            font-size: 1.25rem;
-        }
-
-        .upload-file-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            color: #60a5fa;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .upload-file-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Save Button */
-        .save-section {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-
-        .save-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.5);
-            transition: all 0.3s;
-        }
-
-        .save-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px -10px rgba(16, 185, 129, 0.6);
-        }
-
-        .save-btn i {
-            font-size: 1.25rem;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border-radius: 10px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.5);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            z-index: 2000;
-        }
-
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
+        .close-modal:hover {
+            background: #dc2626;
+            transform: rotate(90deg);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .section-title {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .section-header {
-                padding: 1.5rem;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .section-content {
+            .section-header, .section-content {
                 padding: 1.5rem;
             }
 
@@ -521,20 +503,25 @@
                 grid-template-columns: 1fr;
             }
 
-            .save-section {
-                bottom: 1rem;
-                right: 1rem;
+            .pdf-item {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .save-btn {
-                padding: 0.875rem 1.5rem;
-                font-size: 1rem;
+            .pdf-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .pdf-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
@@ -548,12 +535,6 @@
     </style>
 </head>
 <body>
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
-        Sauvegardé avec succès !
-    </div>
-
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -561,40 +542,31 @@
                 <i class="fas fa-arrow-left"></i>
                 Retour à l'accueil
             </a>
-            <a href="admin.html" class="admin-link">
-                <i class="fas fa-cog"></i>
-                Administration
-            </a>
         </div>
     </header>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Dossier Numérique Personnel</h1>
-        <p class="hero-subtitle">
-            Retour de stage - Formation BTS SIO Option SLAM
-        </p>
-        <div class="stage-info">
+        <h1>Retour de Stage BTS SIO</h1>
+        <p class="hero-subtitle">Formation BTS SIO Option SLAM - Semaine Post-PFMP1 2025-2026</p>
+        <div class="stage-badge">
             <i class="fas fa-calendar-alt"></i>
             Janvier 2026
         </div>
     </section>
 
-    <!-- Main Container -->
+    <!-- Container -->
     <div class="container">
         <!-- Section 1: Structure du Stage -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 01</div>
+                <div class="section-title">
                     <div class="section-icon">
                         <i class="fas fa-building"></i>
                     </div>
-                    <div>
-                        <div class="section-number">Section 01</div>
-                        <h2 class="section-title">Structure du Stage</h2>
-                    </div>
+                    Présentation de la Structure
                 </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
             <div class="section-content">
                 <div class="subsection">
@@ -602,7 +574,9 @@
                         <i class="fas fa-info-circle"></i>
                         Contexte de l'entreprise
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez l'entreprise d'accueil, son secteur d'activité, sa taille..."></div>
+                    <div class="content-text">
+                        <p>Présentez ici l'entreprise d'accueil, son secteur d'activité, sa taille, son historique et sa position sur le marché.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -610,7 +584,9 @@
                         <i class="fas fa-users"></i>
                         Équipe et environnement
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Présentez l'équipe avec laquelle vous avez travaillé, l'organisation du service..."></div>
+                    <div class="content-text">
+                        <p>Décrivez l'équipe avec laquelle vous avez travaillé, l'organisation du service informatique, et l'ambiance de travail.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -618,45 +594,65 @@
                         <i class="fas fa-user-tie"></i>
                         Tuteur de stage
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Nom, fonction et rôle de votre tuteur de stage..."></div>
+                    <div class="content-text">
+                        <p><strong>Nom et fonction du tuteur :</strong> [À compléter]</p>
+                        <p>Présentez le rôle de votre tuteur dans votre accompagnement durant le stage.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
                     <h3 class="subsection-title">
                         <i class="fas fa-images"></i>
-                        Images illustratives
+                        Photos de l'entreprise
                     </h3>
                     <div class="images-gallery">
-                        <div class="image-upload-zone" onclick="uploadImage(this, 'section1')">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Cliquez pour ajouter une image</span>
+                        <div class="image-item" onclick="openImageModal('path/to/image1.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <span>Logo entreprise</span>
+                            </div>
+                        </div>
+                        <div class="image-item" onclick="openImageModal('path/to/image2.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <span>Locaux</span>
+                            </div>
+                        </div>
+                        <div class="image-item" onclick="openImageModal('path/to/image3.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <span>Espace de travail</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Section 2: Cahier des Charges -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 02</div>
+                <div class="section-title">
                     <div class="section-icon">
-                        <i class="fas fa-tasks"></i>
+                        <i class="fas fa-clipboard-list"></i>
                     </div>
-                    <div>
-                        <div class="section-number">Section 02</div>
-                        <h2 class="section-title">Cahier des Charges & Missions</h2>
-                    </div>
+                    Cahier des Charges
                 </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
             <div class="section-content">
                 <div class="subsection">
                     <h3 class="subsection-title">
-                        <i class="fas fa-clipboard-list"></i>
+                        <i class="fas fa-tasks"></i>
                         Missions confiées
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Listez les missions principales qui vous ont été confiées..."></div>
+                    <div class="content-text">
+                        <ul>
+                            <li>Mission 1 : [À compléter]</li>
+                            <li>Mission 2 : [À compléter]</li>
+                            <li>Mission 3 : [À compléter]</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -664,7 +660,9 @@
                         <i class="fas fa-bullseye"></i>
                         Objectifs du stage
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels étaient les objectifs fixés au début du stage ?"></div>
+                    <div class="content-text">
+                        <p>Décrivez les objectifs fixés au début du stage et les résultats attendus.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -672,24 +670,23 @@
                         <i class="fas fa-exclamation-triangle"></i>
                         Contraintes identifiées
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez les contraintes techniques, temporelles, ou organisationnelles..."></div>
+                    <div class="content-text">
+                        <p>Listez les contraintes techniques, temporelles, budgétaires ou organisationnelles rencontrées.</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Section 3: Activités & Moyens -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 03</div>
+                <div class="section-title">
                     <div class="section-icon">
                         <i class="fas fa-cogs"></i>
                     </div>
-                    <div>
-                        <div class="section-number">Section 03</div>
-                        <h2 class="section-title">Activités Prévues & Moyens Mobilisés</h2>
-                    </div>
+                    Activités Prévues & Moyens Mobilisés
                 </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
             <div class="section-content">
                 <div class="subsection">
@@ -697,7 +694,9 @@
                         <i class="fas fa-project-diagram"></i>
                         Activités réalisées
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Détaillez les activités menées à leur terme..."></div>
+                    <div class="content-text">
+                        <p>Détaillez les différentes activités que vous avez menées durant votre stage.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -705,7 +704,14 @@
                         <i class="fas fa-laptop-code"></i>
                         Outils et technologies
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Logiciels, langages de programmation, frameworks utilisés..."></div>
+                    <div class="content-text">
+                        <ul>
+                            <li>Langages : [Ex: Python, JavaScript, PHP...]</li>
+                            <li>Frameworks : [Ex: React, Laravel, Django...]</li>
+                            <li>Outils : [Ex: Git, Docker, VS Code...]</li>
+                            <li>Bases de données : [Ex: MySQL, MongoDB...]</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -713,24 +719,23 @@
                         <i class="fas fa-wrench"></i>
                         Matériels mobilisés
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Équipements, serveurs, environnements de développement..."></div>
+                    <div class="content-text">
+                        <p>Décrivez les équipements matériels, serveurs, et environnements de développement utilisés.</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Section 4: Travaux Réalisés -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 04</div>
+                <div class="section-title">
                     <div class="section-icon">
                         <i class="fas fa-code"></i>
                     </div>
-                    <div>
-                        <div class="section-number">Section 04</div>
-                        <h2 class="section-title">Travaux Réalisés</h2>
-                    </div>
+                    Travaux Réalisés
                 </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
             <div class="section-content">
                 <div class="subsection">
@@ -738,7 +743,9 @@
                         <i class="fas fa-file-code"></i>
                         Projets développés
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez en détail les projets que vous avez développés..."></div>
+                    <div class="content-text">
+                        <p>Présentez en détail les projets sur lesquels vous avez travaillé, leur contexte, leur objectif et les technologies employées.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -746,50 +753,78 @@
                         <i class="fas fa-bug"></i>
                         Problèmes rencontrés et solutions
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels problèmes avez-vous rencontrés ? Comment les avez-vous résolus ?"></div>
+                    <div class="content-text">
+                        <p>Décrivez les difficultés techniques rencontrées et comment vous les avez surmontées.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
                     <h3 class="subsection-title">
                         <i class="fas fa-images"></i>
-                        Captures d'écran et démonstrations
+                        Captures d'écran
                     </h3>
                     <div class="images-gallery">
-                        <div class="image-upload-zone" onclick="uploadImage(this, 'section4')">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Ajouter une capture</span>
+                        <div class="image-item" onclick="openImageModal('path/to/screenshot1.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-desktop"></i>
+                                <span>Interface principale</span>
+                            </div>
+                        </div>
+                        <div class="image-item" onclick="openImageModal('path/to/screenshot2.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-desktop"></i>
+                                <span>Tableau de bord</span>
+                            </div>
+                        </div>
+                        <div class="image-item" onclick="openImageModal('path/to/screenshot3.jpg')">
+                            <div class="image-placeholder">
+                                <i class="fas fa-desktop"></i>
+                                <span>Module développé</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="subsection">
                     <h3 class="subsection-title">
-                        <i class="fas fa-folder"></i>
-                        Fichiers et documents
+                        <i class="fas fa-file-pdf"></i>
+                        Documents techniques
                     </h3>
-                    <label for="fileUpload4" class="upload-file-btn">
-                        <i class="fas fa-upload"></i>
-                        Ajouter des fichiers
-                    </label>
-                    <input type="file" id="fileUpload4" multiple style="display: none;" onchange="handleFiles(this, 'section4')">
-                    <div class="files-list" id="filesList4"></div>
+                    <div class="pdf-list">
+                        <div class="pdf-item">
+                            <div class="pdf-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="pdf-info">
+                                <div class="pdf-name">Documentation Technique</div>
+                                <div class="pdf-desc">Guide complet du projet développé</div>
+                            </div>
+                            <div class="pdf-actions">
+                                <button class="pdf-btn view-btn" onclick="openPdfModal('path/to/doc-technique.pdf')">
+                                    <i class="fas fa-eye"></i>
+                                    Voir
+                                </button>
+                                <button class="pdf-btn download-btn" onclick="downloadPdf('path/to/doc-technique.pdf', 'Documentation_Technique.pdf')">
+                                    <i class="fas fa-download"></i>
+                                    Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Section 5: Analyse Réflexive -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 05</div>
+                <div class="section-title">
                     <div class="section-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <div>
-                        <div class="section-number">Section 05</div>
-                        <h2 class="section-title">Analyse Réflexive</h2>
-                    </div>
+                    Analyse Réflexive
                 </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
             </div>
             <div class="section-content">
                 <div class="subsection">
@@ -797,7 +832,9 @@
                         <i class="fas fa-lightbulb"></i>
                         Ce que j'ai appris
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Réflexion sur vos apprentissages techniques et professionnels..."></div>
+                    <div class="content-text">
+                        <p>Partagez vos apprentissages techniques, méthodologiques et professionnels durant ce stage.</p>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -805,7 +842,16 @@
                         <i class="fas fa-chart-line"></i>
                         Points forts et axes d'amélioration
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Analysez vos points forts et ce que vous pourriez améliorer..."></div>
+                    <div class="content-text">
+                        <p><strong>Points forts :</strong></p>
+                        <ul>
+                            <li>[À compléter]</li>
+                        </ul>
+                        <p><strong>Axes d'amélioration :</strong></p>
+                        <ul>
+                            <li>[À compléter]</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="subsection">
@@ -813,327 +859,17 @@
                         <i class="fas fa-comments"></i>
                         Difficultés rencontrées
                     </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Quelles ont été les principales difficultés ? Comment les avez-vous surmontées ?"></div>
+                    <div class="content-text">
+                        <p>Réfléchissez sur les moments difficiles et comment vous les avez surmontés.</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Section 6: Compétences Acquises -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">Section 06</div>
+                <div class="section-title">
                     <div class="section-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <div class="section-number">Section 06</div>
-                        <h2 class="section-title">Connaissances & Compétences Acquises</h2>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
-            </div>
-            <div class="section-content">
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-code-branch"></i>
-                        Compétences techniques
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Langages, frameworks, outils maîtrisés..."></div>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-users-cog"></i>
-                        Compétences transversales
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Travail en équipe, gestion de projet, communication..."></div>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-certificate"></i>
-                        Compétences BTS SIO visées
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Référencez les compétences du référentiel BTS SIO développées durant le stage..."></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 7: Bilan du Stage -->
-        <div class="section-card">
-            <div class="section-header" onclick="toggleSection(this)">
-                <div class="section-title-wrapper">
-                    <div class="section-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-                    <div>
-                        <div class="section-number">Section 07</div>
-                        <h2 class="section-title">Bilan du Stage</h2>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-down toggle-icon"></i>
-            </div>
-            <div class="section-content">
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-check-double"></i>
-                        Objectifs atteints
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Faites le bilan des objectifs fixés au début du stage..."></div>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-sync-alt"></i>
-                        Réévaluation des besoins
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels besoins ont émergé en cours de stage ? Comment ont-ils été gérés ?"></div>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-star"></i>
-                        Appréciation générale
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Votre ressenti global sur cette expérience professionnelle..."></div>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">
-                        <i class="fas fa-road"></i>
-                        Perspectives d'avenir
-                    </h3>
-                    <div class="editable-zone" contenteditable="true" data-placeholder="Comment ce stage influence-t-il votre projet professionnel ?"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Save Button -->
-    <div class="save-section">
-        <button class="save-btn" onclick="saveAll()">
-            <i class="fas fa-save"></i>
-            Sauvegarder tout
-        </button>
-    </div>
-
-    <script>
-        // Storage pour toutes les données
-        const portfolioData = {
-            sections: {},
-            images: {},
-            files: {}
-        };
-
-        // Charger les données au démarrage
-        window.addEventListener('DOMContentLoaded', () => {
-            loadAllData();
-        });
-
-        // Toggle section
-        function toggleSection(header) {
-            header.classList.toggle('active');
-            const content = header.nextElementSibling;
-            content.classList.toggle('active');
-        }
-
-        // Upload image
-        function uploadImage(zone, sectionId) {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.multiple = true;
-            
-            input.onchange = (e) => {
-                const files = Array.from(e.target.files);
-                const gallery = zone.parentElement;
-                
-                files.forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        const imgZone = document.createElement('div');
-                        imgZone.className = 'image-upload-zone';
-                        imgZone.innerHTML = `
-                            <img src="${event.target.result}" class="uploaded-image" alt="Uploaded">
-                            <button class="remove-image" onclick="removeImage(this)">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        `;
-                        
-                        gallery.insertBefore(imgZone, zone);
-                        
-                        // Sauvegarder l'image
-                        if (!portfolioData.images[sectionId]) {
-                            portfolioData.images[sectionId] = [];
-                        }
-                        portfolioData.images[sectionId].push(event.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            };
-            
-            input.click();
-        }
-
-        // Remove image
-        function removeImage(btn) {
-            const zone = btn.parentElement;
-            zone.remove();
-        }
-
-        // Handle file upload
-        function handleFiles(input, sectionId) {
-            const filesList = document.getElementById(`filesList${sectionId.slice(-1)}`);
-            const files = Array.from(input.files);
-            
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    fileItem.innerHTML = `
-                        <div class="file-icon">
-                            <i class="fas fa-file-${getFileIcon(file.type)}"></i>
-                        </div>
-                        <div class="file-info">
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-type">${getFileType(file.type)}</div>
-                        </div>
-                        <div class="file-action" onclick="downloadFile('${event.target.result}', '${file.name}')">
-                            <i class="fas fa-download"></i>
-                        </div>
-                    `;
-                    
-                    filesList.appendChild(fileItem);
-                    
-                    // Sauvegarder le fichier
-                    if (!portfolioData.files[sectionId]) {
-                        portfolioData.files[sectionId] = [];
-                    }
-                    portfolioData.files[sectionId].push({
-                        name: file.name,
-                        type: file.type,
-                        data: event.target.result
-                    });
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        // Get file icon
-        function getFileIcon(type) {
-            if (type.includes('pdf')) return 'pdf';
-            if (type.includes('word')) return 'word';
-            if (type.includes('excel')) return 'excel';
-            if (type.includes('zip')) return 'archive';
-            if (type.includes('image')) return 'image';
-            return 'alt';
-        }
-
-        // Get file type
-        function getFileType(type) {
-            if (type.includes('pdf')) return 'Document PDF';
-            if (type.includes('word')) return 'Document Word';
-            if (type.includes('excel')) return 'Fichier Excel';
-            if (type.includes('zip')) return 'Archive ZIP';
-            if (type.includes('image')) return 'Image';
-            return 'Fichier';
-        }
-
-        // Download file
-        function downloadFile(dataUrl, fileName) {
-            const link = document.createElement('a');
-            link.href = dataUrl;
-            link.download = fileName;
-            link.click();
-        }
-
-        // Save all data
-        function saveAll() {
-            // Sauvegarder tous les contenus éditables
-            document.querySelectorAll('.editable-zone').forEach((zone, index) => {
-                portfolioData.sections[`zone_${index}`] = zone.innerHTML;
-            });
-            
-            // Sauvegarder dans localStorage
-            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
-            
-            // Afficher notification
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Load all data
-        function loadAllData() {
-            const saved = localStorage.getItem('portfolioData');
-            if (saved) {
-                const data = JSON.parse(saved);
-                
-                // Charger les contenus éditables
-                document.querySelectorAll('.editable-zone').forEach((zone, index) => {
-                    if (data.sections && data.sections[`zone_${index}`]) {
-                        zone.innerHTML = data.sections[`zone_${index}`];
-                    }
-                });
-                
-                // Charger les images
-                if (data.images) {
-                    Object.keys(data.images).forEach(sectionId => {
-                        const gallery = document.querySelector(`[onclick*="${sectionId}"]`)?.parentElement;
-                        if (gallery) {
-                            const uploadZone = gallery.querySelector('.image-upload-zone:last-child');
-                            data.images[sectionId].forEach(imgData => {
-                                const imgZone = document.createElement('div');
-                                imgZone.className = 'image-upload-zone';
-                                imgZone.innerHTML = `
-                                    <img src="${imgData}" class="uploaded-image" alt="Uploaded">
-                                    <button class="remove-image" onclick="removeImage(this)">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                `;
-                                gallery.insertBefore(imgZone, uploadZone);
-                            });
-                        }
-                    });
-                }
-                
-                // Charger les fichiers
-                if (data.files) {
-                    Object.keys(data.files).forEach(sectionId => {
-                        const filesList = document.getElementById(`filesList${sectionId.slice(-1)}`);
-                        if (filesList) {
-                            data.files[sectionId].forEach(file => {
-                                const fileItem = document.createElement('div');
-                                fileItem.className = 'file-item';
-                                fileItem.innerHTML = `
-                                    <div class="file-icon">
-                                        <i class="fas fa-file-${getFileIcon(file.type)}"></i>
-                                    </div>
-                                    <div class="file-info">
-                                        <div class="file-name">${file.name}</div>
-                                        <div class="file-type">${getFileType(file.type)}</div>
-                                    </div>
-                                    <div class="file-action" onclick="downloadFile('${file.data}', '${file.name}')">
-                                        <i class="fas fa-download"></i>
-                                    </div>
-                                `;
-                                filesList.appendChild(fileItem);
-                            });
-                        }
-                    });
-                }
-                
-                Object.assign(portfolioData, data);
-            }
-        }
-
-        // Auto-save every 30 seconds
-        setInterval(() => {
-            saveAll();
-        }, 30000);
-    </script>
-</body>
-</html>
+                        <i class="fas fa-graduation-cap"></i
