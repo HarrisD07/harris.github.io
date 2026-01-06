@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Projets - Harris Kosoko</title>
+    <title>Dossier Numérique Personnel - Harris Kosoko</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- NE PAS charger style.css ici pour éviter les conflits -->
     <style>
         * {
             margin: 0;
@@ -32,7 +31,7 @@
         }
 
         .header-content {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -70,12 +69,11 @@
 
         .admin-link:hover {
             background: rgba(245, 158, 11, 0.2);
-            transform: translateY(-2px);
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 4rem 2rem 3rem;
             text-align: center;
@@ -93,11 +91,11 @@
         .hero-subtitle {
             color: #94a3b8;
             font-size: 1.2rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 2rem;
         }
 
-        .projects-count {
+        .stage-info {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -109,15 +107,15 @@
             font-weight: 600;
         }
 
-        /* Timeline Container */
-        .timeline-container {
-            max-width: 1000px;
+        /* Main Container */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Project Timeline Item */
-        .project-timeline-item {
+        /* Section Card */
+        .section-card {
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 16px;
@@ -126,189 +124,237 @@
             transition: all 0.3s;
         }
 
-        .project-timeline-item:hover {
+        .section-card:hover {
             border-color: #3b82f6;
             box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.3);
         }
 
-        /* Project Header */
-        .project-header {
+        /* Section Header */
+        .section-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
             padding: 2rem;
             border-bottom: 1px solid #334155;
-        }
-
-        .project-title-row {
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            transition: all 0.3s;
         }
 
-        .project-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #f1f5f9;
-            flex: 1;
+        .section-header:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.3));
         }
 
-        .project-date {
+        .section-title-wrapper {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: #06b6d4;
-            font-weight: 600;
-            white-space: nowrap;
-            font-size: 0.95rem;
+            gap: 1rem;
         }
 
-        .project-description {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .project-technologies {
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 12px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        /* Project Content */
-        .project-content {
-            padding: 2rem;
-        }
-
-        .content-section {
-            margin-bottom: 2rem;
-        }
-
-        .content-section:last-child {
-            margin-bottom: 0;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: #f1f5f9;
+        }
+
+        .section-number {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            transition: transform 0.3s;
+        }
+
+        .section-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Section Content */
+        .section-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .subsection {
+            margin-bottom: 2rem;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #60a5fa;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
-        .section-title i {
+        .subsection-title i {
             color: #06b6d4;
         }
 
-        .project-details {
-            color: #94a3b8;
-            font-size: 1rem;
+        .content-text {
+            color: #cbd5e1;
+            font-size: 1.05rem;
             line-height: 1.8;
             padding: 1.5rem;
             background: rgba(15, 23, 42, 0.5);
             border-radius: 12px;
             border-left: 4px solid #3b82f6;
+            margin-bottom: 1rem;
         }
 
-        /* Images Section */
-        .images-section {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .main-image-container {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            background: #0f172a;
-        }
-
-        .main-image {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s;
-        }
-
-        .main-image-container:hover .main-image {
-            transform: scale(1.05);
-        }
-
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            display: flex;
-            align-items: flex-end;
+        .editable-zone {
+            min-height: 100px;
             padding: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .main-image-container:hover .image-overlay {
-            opacity: 1;
-        }
-
-        .view-image-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: white;
-            color: #0f172a;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
+            background: rgba(15, 23, 42, 0.7);
+            border: 2px dashed #334155;
+            border-radius: 12px;
+            color: #94a3b8;
+            cursor: text;
             transition: all 0.3s;
         }
 
-        .view-image-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        .editable-zone:hover {
+            border-color: #3b82f6;
+            background: rgba(15, 23, 42, 0.9);
         }
 
-        /* Gallery thumbnails */
-        .gallery-thumbnails {
+        .editable-zone:focus {
+            outline: none;
+            border-color: #06b6d4;
+            border-style: solid;
+            color: #e2e8f0;
+        }
+
+        .editable-zone[contenteditable="true"]:empty:before {
+            content: attr(data-placeholder);
+            color: #475569;
+        }
+
+        /* List Styles */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .custom-list li {
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 4px solid #06b6d4;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            color: #cbd5e1;
+            transition: all 0.3s;
+        }
+
+        .custom-list li:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(5px);
+        }
+
+        .custom-list li strong {
+            color: #60a5fa;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Images Gallery */
+        .images-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
 
-        .thumbnail {
+        .image-upload-zone {
             aspect-ratio: 16/9;
-            border-radius: 8px;
-            overflow: hidden;
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px dashed #334155;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            border: 2px solid transparent;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .thumbnail:hover {
+        .image-upload-zone:hover {
             border-color: #3b82f6;
-            transform: scale(1.05);
+            background: rgba(59, 130, 246, 0.1);
         }
 
-        .thumbnail img {
+        .image-upload-zone i {
+            font-size: 2rem;
+            color: #475569;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-upload-zone span {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .uploaded-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .image-upload-zone:hover .remove-image {
+            display: flex;
+        }
+
+        .remove-image:hover {
+            background: #dc2626;
+            transform: scale(1.1);
         }
 
         /* Files Section */
@@ -367,14 +413,7 @@
             font-size: 1.25rem;
         }
 
-        /* Links Section */
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .project-link-btn {
+        .upload-file-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
@@ -383,111 +422,69 @@
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 10px;
             color: #60a5fa;
-            text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .project-link-btn:hover {
+        .upload-file-btn:hover {
             background: rgba(59, 130, 246, 0.2);
             transform: translateY(-2px);
         }
 
-        .project-link-btn i {
-            font-size: 1.25rem;
-        }
-
-        /* Image Viewer Modal */
-        .image-viewer {
-            display: none;
+        /* Save Button */
+        .save-section {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
+            bottom: 2rem;
+            right: 2rem;
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
         }
 
-        .image-viewer.active {
+        .save-btn {
             display: flex;
-        }
-
-        .viewer-content {
-            max-width: 90vw;
-            max-height: 90vh;
-            position: relative;
-        }
-
-        .viewer-image {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .viewer-close {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            width: 40px;
-            height: 40px;
-            background: rgba(239, 68, 68, 0.9);
-            border: none;
-            border-radius: 50%;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.5);
             transition: all 0.3s;
         }
 
-        .viewer-close:hover {
-            background: #dc2626;
-            transform: rotate(90deg);
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px -10px rgba(16, 185, 129, 0.6);
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 5rem 2rem;
+        .save-btn i {
+            font-size: 1.25rem;
         }
 
-        .empty-icon {
-            font-size: 5rem;
-            color: #334155;
-            margin-bottom: 1.5rem;
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            z-index: 2000;
         }
 
-        .empty-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #64748b;
-            margin-bottom: 0.75rem;
-        }
-
-        .empty-text {
-            color: #475569;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 5rem 2rem;
-            color: #64748b;
-        }
-
-        .loading i {
-            font-size: 3rem;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive */
@@ -496,43 +493,42 @@
                 font-size: 2rem;
             }
 
-            .hero-subtitle {
-                font-size: 1rem;
+            .section-title {
+                font-size: 1.3rem;
             }
 
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
-                padding: 0 1rem;
             }
 
-            .timeline-container {
+            .container {
                 padding: 1rem;
             }
 
-            .project-header {
+            .section-header {
+                padding: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .section-content {
                 padding: 1.5rem;
             }
 
-            .project-content {
-                padding: 1.5rem;
+            .images-gallery {
+                grid-template-columns: 1fr;
             }
 
-            .project-title {
-                font-size: 1.5rem;
+            .save-section {
+                bottom: 1rem;
+                right: 1rem;
             }
 
-            .project-title-row {
-                flex-direction: column;
-                align-items: start;
-            }
-
-            .gallery-thumbnails {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
-
-            .project-links {
-                flex-direction: column;
+            .save-btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
             }
         }
 
@@ -552,6 +548,12 @@
     </style>
 </head>
 <body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        Sauvegardé avec succès !
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -560,7 +562,7 @@
                 Retour à l'accueil
             </a>
             <a href="admin.html" class="admin-link">
-                <i class="fas fa-lock"></i>
+                <i class="fas fa-cog"></i>
                 Administration
             </a>
         </div>
@@ -568,279 +570,570 @@
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Mes Projets & Réalisations</h1>
+        <h1>Dossier Numérique Personnel</h1>
         <p class="hero-subtitle">
-            Découvrez en détail mes expériences professionnelles et projets académiques
+            Retour de stage - Formation BTS SIO Option SLAM
         </p>
-        <div class="projects-count">
-            <i class="fas fa-folder"></i>
-            <span id="projectCount">0</span> projet(s)
+        <div class="stage-info">
+            <i class="fas fa-calendar-alt"></i>
+            Janvier 2026
         </div>
     </section>
 
-    <!-- Timeline -->
-    <div class="timeline-container">
-        <div id="projectsTimeline">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <p>Chargement des projets...</p>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Section 1: Structure du Stage -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 01</div>
+                        <h2 class="section-title">Structure du Stage</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-info-circle"></i>
+                        Contexte de l'entreprise
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez l'entreprise d'accueil, son secteur d'activité, sa taille..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-users"></i>
+                        Équipe et environnement
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Présentez l'équipe avec laquelle vous avez travaillé, l'organisation du service..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-user-tie"></i>
+                        Tuteur de stage
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Nom, fonction et rôle de votre tuteur de stage..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-images"></i>
+                        Images illustratives
+                    </h3>
+                    <div class="images-gallery">
+                        <div class="image-upload-zone" onclick="uploadImage(this, 'section1')">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Cliquez pour ajouter une image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Cahier des Charges -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 02</div>
+                        <h2 class="section-title">Cahier des Charges & Missions</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        Missions confiées
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Listez les missions principales qui vous ont été confiées..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objectifs du stage
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels étaient les objectifs fixés au début du stage ?"></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Contraintes identifiées
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez les contraintes techniques, temporelles, ou organisationnelles..."></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Activités & Moyens -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 03</div>
+                        <h2 class="section-title">Activités Prévues & Moyens Mobilisés</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Activités réalisées
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Détaillez les activités menées à leur terme..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-laptop-code"></i>
+                        Outils et technologies
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Logiciels, langages de programmation, frameworks utilisés..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-wrench"></i>
+                        Matériels mobilisés
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Équipements, serveurs, environnements de développement..."></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Travaux Réalisés -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 04</div>
+                        <h2 class="section-title">Travaux Réalisés</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-file-code"></i>
+                        Projets développés
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Décrivez en détail les projets que vous avez développés..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-bug"></i>
+                        Problèmes rencontrés et solutions
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels problèmes avez-vous rencontrés ? Comment les avez-vous résolus ?"></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-images"></i>
+                        Captures d'écran et démonstrations
+                    </h3>
+                    <div class="images-gallery">
+                        <div class="image-upload-zone" onclick="uploadImage(this, 'section4')">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Ajouter une capture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-folder"></i>
+                        Fichiers et documents
+                    </h3>
+                    <label for="fileUpload4" class="upload-file-btn">
+                        <i class="fas fa-upload"></i>
+                        Ajouter des fichiers
+                    </label>
+                    <input type="file" id="fileUpload4" multiple style="display: none;" onchange="handleFiles(this, 'section4')">
+                    <div class="files-list" id="filesList4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Analyse Réflexive -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 05</div>
+                        <h2 class="section-title">Analyse Réflexive</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Ce que j'ai appris
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Réflexion sur vos apprentissages techniques et professionnels..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-chart-line"></i>
+                        Points forts et axes d'amélioration
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Analysez vos points forts et ce que vous pourriez améliorer..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-comments"></i>
+                        Difficultés rencontrées
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Quelles ont été les principales difficultés ? Comment les avez-vous surmontées ?"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Compétences Acquises -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 06</div>
+                        <h2 class="section-title">Connaissances & Compétences Acquises</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-code-branch"></i>
+                        Compétences techniques
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Langages, frameworks, outils maîtrisés..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-users-cog"></i>
+                        Compétences transversales
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Travail en équipe, gestion de projet, communication..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-certificate"></i>
+                        Compétences BTS SIO visées
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Référencez les compétences du référentiel BTS SIO développées durant le stage..."></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Bilan du Stage -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title-wrapper">
+                    <div class="section-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div>
+                        <div class="section-number">Section 07</div>
+                        <h2 class="section-title">Bilan du Stage</h2>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-check-double"></i>
+                        Objectifs atteints
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Faites le bilan des objectifs fixés au début du stage..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-sync-alt"></i>
+                        Réévaluation des besoins
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Quels besoins ont émergé en cours de stage ? Comment ont-ils été gérés ?"></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-star"></i>
+                        Appréciation générale
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Votre ressenti global sur cette expérience professionnelle..."></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-road"></i>
+                        Perspectives d'avenir
+                    </h3>
+                    <div class="editable-zone" contenteditable="true" data-placeholder="Comment ce stage influence-t-il votre projet professionnel ?"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Image Viewer -->
-    <div class="image-viewer" id="imageViewer">
-        <div class="viewer-content">
-            <button class="viewer-close" onclick="closeViewer()">
-                <i class="fas fa-times"></i>
-            </button>
-            <img id="viewerImage" class="viewer-image" src="" alt="">
-        </div>
+    <!-- Save Button -->
+    <div class="save-section">
+        <button class="save-btn" onclick="saveAll()">
+            <i class="fas fa-save"></i>
+            Sauvegarder tout
+        </button>
     </div>
 
     <script>
-        let allProjects = [];
+        // Storage pour toutes les données
+        const portfolioData = {
+            sections: {},
+            images: {},
+            files: {}
+        };
 
-        // Charger les projets
-        async function loadProjects() {
-            try {
-                // PRIORITÉ 1: LocalStorage (données de l'admin)
-                const savedProjects = localStorage.getItem('portfolioProjects');
+        // Charger les données au démarrage
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAllData();
+        });
+
+        // Toggle section
+        function toggleSection(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Upload image
+        function uploadImage(zone, sectionId) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.multiple = true;
+            
+            input.onchange = (e) => {
+                const files = Array.from(e.target.files);
+                const gallery = zone.parentElement;
                 
-                if (savedProjects && savedProjects !== '[]') {
-                    allProjects = JSON.parse(savedProjects);
-                    console.log('✅ Chargé depuis localStorage:', allProjects.length, 'projets');
-                } else {
-                    // PRIORITÉ 2: Fichier JSON
-                    const response = await fetch('projects.json');
-                    allProjects = await response.json();
-                    console.log('✅ Chargé depuis projects.json:', allProjects.length, 'projets');
-                }
-
-                displayProjects();
-            } catch (error) {
-                console.error('❌ Erreur chargement:', error);
-                showEmptyState();
-            }
+                files.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const imgZone = document.createElement('div');
+                        imgZone.className = 'image-upload-zone';
+                        imgZone.innerHTML = `
+                            <img src="${event.target.result}" class="uploaded-image" alt="Uploaded">
+                            <button class="remove-image" onclick="removeImage(this)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        
+                        gallery.insertBefore(imgZone, zone);
+                        
+                        // Sauvegarder l'image
+                        if (!portfolioData.images[sectionId]) {
+                            portfolioData.images[sectionId] = [];
+                        }
+                        portfolioData.images[sectionId].push(event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            };
+            
+            input.click();
         }
 
-        // Afficher les projets
-        function displayProjects() {
-            const container = document.getElementById('projectsTimeline');
-            document.getElementById('projectCount').textContent = allProjects.length;
+        // Remove image
+        function removeImage(btn) {
+            const zone = btn.parentElement;
+            zone.remove();
+        }
 
-            if (allProjects.length === 0) {
-                showEmptyState();
-                return;
-            }
-
-            container.innerHTML = allProjects.map(project => {
-                const hasDetails = project.details && project.details.trim();
-                const hasImages = project.images && project.images.length > 0;
-                const hasFiles = project.files && project.files.length > 0;
-                const hasLinks = project.github || project.demo;
-
-                return `
-                    <div class="project-timeline-item">
-                        <!-- Header -->
-                        <div class="project-header">
-                            <div class="project-title-row">
-                                <h2 class="project-title">${project.title}</h2>
-                                <div class="project-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    ${project.date}
-                                </div>
-                            </div>
-                            <p class="project-description">${project.description}</p>
-                            <div class="project-technologies">
-                                ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                            </div>
+        // Handle file upload
+        function handleFiles(input, sectionId) {
+            const filesList = document.getElementById(`filesList${sectionId.slice(-1)}`);
+            const files = Array.from(input.files);
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div class="file-icon">
+                            <i class="fas fa-file-${getFileIcon(file.type)}"></i>
                         </div>
-
-                        <!-- Content -->
-                        <div class="project-content">
-                            ${hasDetails ? `
-                                <div class="content-section">
-                                    <h3 class="section-title">
-                                        <i class="fas fa-info-circle"></i>
-                                        Détails du projet
-                                    </h3>
-                                    <div class="project-details">${project.details}</div>
-                                </div>
-                            ` : ''}
-
-                            ${hasImages ? `
-                                <div class="content-section">
-                                    <h3 class="section-title">
-                                        <i class="fas fa-images"></i>
-                                        Images du projet
-                                    </h3>
-                                    <div class="images-section">
-                                        <div class="main-image-container" onclick="openViewer('${project.images[0].replace(/'/g, "\\'")}')">
-                                            <img src="${project.images[0]}" alt="${project.title}" class="main-image" 
-                                                 onerror="this.src='https://via.placeholder.com/800x400/1e3a8a/ffffff?text=Image'">
-                                            <div class="image-overlay">
-                                                <button class="view-image-btn">
-                                                    <i class="fas fa-search-plus"></i>
-                                                    Voir en grand
-                                                </button>
-                                            </div>
-                                        </div>
-                                        ${project.images.length > 1 ? `
-                                            <div class="gallery-thumbnails">
-                                                ${project.images.slice(1).map(img => `
-                                                    <div class="thumbnail" onclick="openViewer('${img.replace(/'/g, "\\'")}')">
-                                                        <img src="${img}" alt="Miniature" 
-                                                             onerror="this.src='https://via.placeholder.com/200x150/1e3a8a/ffffff?text=Image'">
-                                                    </div>
-                                                `).join('')}
-                                            </div>
-                                        ` : ''}
-                                    </div>
-                                </div>
-                            ` : ''}
-
-                            ${hasFiles ? `
-                                <div class="content-section">
-                                    <h3 class="section-title">
-                                        <i class="fas fa-file-alt"></i>
-                                        Fichiers associés
-                                    </h3>
-                                    <div class="files-list">
-                                        ${project.files.map(file => `
-                                            <div class="file-item" onclick="downloadFile('${file.data}', '${file.name}')">
-                                                <div class="file-icon">
-                                                    <i class="fas fa-file-${getFileIcon(file.type || file.name)}"></i>
-                                                </div>
-                                                <div class="file-info">
-                                                    <div class="file-name">${file.name}</div>
-                                                    <div class="file-type">${getFileType(file.type || file.name)}</div>
-                                                </div>
-                                                <div class="file-action">
-                                                    <i class="fas fa-download"></i>
-                                                </div>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                            ` : ''}
-
-                            ${hasLinks ? `
-                                <div class="content-section">
-                                    <h3 class="section-title">
-                                        <i class="fas fa-link"></i>
-                                        Liens externes
-                                    </h3>
-                                    <div class="project-links">
-                                        ${project.github ? `
-                                            <a href="${project.github}" target="_blank" class="project-link-btn">
-                                                <i class="fab fa-github"></i>
-                                                Voir sur GitHub
-                                            </a>
-                                        ` : ''}
-                                        ${project.demo ? `
-                                            <a href="${project.demo}" target="_blank" class="project-link-btn">
-                                                <i class="fas fa-external-link-alt"></i>
-                                                Voir la démo
-                                            </a>
-                                        ` : ''}
-                                    </div>
-                                </div>
-                            ` : ''}
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-type">${getFileType(file.type)}</div>
                         </div>
-                    </div>
-                `;
-            }).join('');
+                        <div class="file-action" onclick="downloadFile('${event.target.result}', '${file.name}')">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    `;
+                    
+                    filesList.appendChild(fileItem);
+                    
+                    // Sauvegarder le fichier
+                    if (!portfolioData.files[sectionId]) {
+                        portfolioData.files[sectionId] = [];
+                    }
+                    portfolioData.files[sectionId].push({
+                        name: file.name,
+                        type: file.type,
+                        data: event.target.result
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
         }
 
-        // Afficher l'état vide
-        function showEmptyState() {
-            const container = document.getElementById('projectsTimeline');
-            container.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-folder-open"></i>
-                    </div>
-                    <h3 class="empty-title">Aucun projet disponible</h3>
-                    <p class="empty-text">Ajoutez vos premiers projets depuis l'administration</p>
-                    <a href="admin.html" class="admin-link">
-                        <i class="fas fa-plus-circle"></i>
-                        Ajouter un projet
-                    </a>
-                </div>
-            `;
+        // Get file icon
+        function getFileIcon(type) {
+            if (type.includes('pdf')) return 'pdf';
+            if (type.includes('word')) return 'word';
+            if (type.includes('excel')) return 'excel';
+            if (type.includes('zip')) return 'archive';
+            if (type.includes('image')) return 'image';
+            return 'alt';
         }
 
-        // Ouvrir le viewer d'image
-        function openViewer(imageSrc) {
-            document.getElementById('viewerImage').src = imageSrc;
-            document.getElementById('imageViewer').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Get file type
+        function getFileType(type) {
+            if (type.includes('pdf')) return 'Document PDF';
+            if (type.includes('word')) return 'Document Word';
+            if (type.includes('excel')) return 'Fichier Excel';
+            if (type.includes('zip')) return 'Archive ZIP';
+            if (type.includes('image')) return 'Image';
+            return 'Fichier';
         }
 
-        // Fermer le viewer
-        function closeViewer() {
-            document.getElementById('imageViewer').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Télécharger un fichier
+        // Download file
         function downloadFile(dataUrl, fileName) {
             const link = document.createElement('a');
             link.href = dataUrl;
             link.download = fileName;
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
         }
 
-        // Obtenir l'icône du fichier
-        function getFileIcon(typeOrName) {
-            const str = typeOrName.toLowerCase();
-            if (str.includes('pdf')) return 'pdf';
-            if (str.includes('word') || str.includes('doc')) return 'word';
-            if (str.includes('excel') || str.includes('xls')) return 'excel';
-            if (str.includes('zip') || str.includes('rar')) return 'archive';
-            if (str.includes('image') || str.includes('jpg') || str.includes('png')) return 'image';
-            return 'alt';
+        // Save all data
+        function saveAll() {
+            // Sauvegarder tous les contenus éditables
+            document.querySelectorAll('.editable-zone').forEach((zone, index) => {
+                portfolioData.sections[`zone_${index}`] = zone.innerHTML;
+            });
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+            
+            // Afficher notification
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
 
-        // Obtenir le type de fichier
-        function getFileType(typeOrName) {
-            const str = typeOrName.toLowerCase();
-            if (str.includes('pdf')) return 'Document PDF';
-            if (str.includes('word') || str.includes('doc')) return 'Document Word';
-            if (str.includes('excel') || str.includes('xls')) return 'Fichier Excel';
-            if (str.includes('zip')) return 'Archive ZIP';
-            if (str.includes('image')) return 'Image';
-            return 'Fichier';
-        }
-
-        // Fermer le viewer avec Échap
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeViewer();
-        });
-
-        // Fermer en cliquant sur le fond
-        document.getElementById('imageViewer').addEventListener('click', (e) => {
-            if (e.target.id === 'imageViewer') closeViewer();
-        });
-
-        // Charger au démarrage
-        loadProjects();
-
-        // Synchronisation automatique toutes les 3 secondes
-        setInterval(() => {
-            const savedProjects = localStorage.getItem('portfolioProjects');
-            if (savedProjects) {
-                const newProjects = JSON.parse(savedProjects);
-                if (JSON.stringify(newProjects) !== JSON.stringify(allProjects)) {
-                    console.log('🔄 Nouveaux projets détectés, actualisation...');
-                    allProjects = newProjects;
-                    displayProjects();
+        // Load all data
+        function loadAllData() {
+            const saved = localStorage.getItem('portfolioData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                
+                // Charger les contenus éditables
+                document.querySelectorAll('.editable-zone').forEach((zone, index) => {
+                    if (data.sections && data.sections[`zone_${index}`]) {
+                        zone.innerHTML = data.sections[`zone_${index}`];
+                    }
+                });
+                
+                // Charger les images
+                if (data.images) {
+                    Object.keys(data.images).forEach(sectionId => {
+                        const gallery = document.querySelector(`[onclick*="${sectionId}"]`)?.parentElement;
+                        if (gallery) {
+                            const uploadZone = gallery.querySelector('.image-upload-zone:last-child');
+                            data.images[sectionId].forEach(imgData => {
+                                const imgZone = document.createElement('div');
+                                imgZone.className = 'image-upload-zone';
+                                imgZone.innerHTML = `
+                                    <img src="${imgData}" class="uploaded-image" alt="Uploaded">
+                                    <button class="remove-image" onclick="removeImage(this)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                `;
+                                gallery.insertBefore(imgZone, uploadZone);
+                            });
+                        }
+                    });
                 }
+                
+                // Charger les fichiers
+                if (data.files) {
+                    Object.keys(data.files).forEach(sectionId => {
+                        const filesList = document.getElementById(`filesList${sectionId.slice(-1)}`);
+                        if (filesList) {
+                            data.files[sectionId].forEach(file => {
+                                const fileItem = document.createElement('div');
+                                fileItem.className = 'file-item';
+                                fileItem.innerHTML = `
+                                    <div class="file-icon">
+                                        <i class="fas fa-file-${getFileIcon(file.type)}"></i>
+                                    </div>
+                                    <div class="file-info">
+                                        <div class="file-name">${file.name}</div>
+                                        <div class="file-type">${getFileType(file.type)}</div>
+                                    </div>
+                                    <div class="file-action" onclick="downloadFile('${file.data}', '${file.name}')">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                `;
+                                filesList.appendChild(fileItem);
+                            });
+                        }
+                    });
+                }
+                
+                Object.assign(portfolioData, data);
             }
-        }, 3000);
+        }
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            saveAll();
+        }, 30000);
     </script>
 </body>
 </html>
